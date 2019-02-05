@@ -1,3 +1,5 @@
+import numpy as np
+
 class NeuralNetwork:
     def __init__(self, inputs, outputs, discount, alpha):
         self.discount = discount

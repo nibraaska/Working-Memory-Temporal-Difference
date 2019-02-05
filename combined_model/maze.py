@@ -1,3 +1,5 @@
+import random
+
 # Goals must be a 2d array of integers: num_of_non_obs_tasks x num_of_obs_tasks. 
 # All possible goals must be put into the array for all possible combination of non observable task switching and obervable task switching.
 class maze:

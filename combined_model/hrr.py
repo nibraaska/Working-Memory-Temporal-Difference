@@ -1,3 +1,5 @@
+import numpy as np
+
 class holographic_reduced_representations:
     
     # Lenght of hrrs
