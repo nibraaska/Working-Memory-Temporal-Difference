@@ -5,21 +5,14 @@ import glob
 import gc
 import itertools
 
-# Creates an array of hrrs of size size_of_array x size_of_hrrs
-def hrr_array(size_of_array, length, normalized=False):
-hrr_arr = np.zeros([size_of_array, length])
-for x in range(size_of_array):
-    hrr_arr[x] = hrr(normalized)
-return hrr_arr
-
 # Preconvolve all hrrs to save time
 def preconvolve(possible_wm, length, possible_signals, state_hrrs):
-preconvolved_matrix = np.zeros([possible_wm.size, possible_signals.size, state_hrrs.size, length])
-for x in range(len(possible_wm)):
-    for y in range(len(possible_signals)):
-        for z in range(len(state_hrrs)):
-            preconvolved_matrix[x][y][z] = convolve(convolve(possible_wm[x], possible_signals[y]), state_hrrs[z])
-return preconvolved_matrix
+    preconvolved_matrix = np.zeros([possible_wm.size, possible_signals.size, state_hrrs.size, length])
+    for x in range(len(possible_wm)):
+        for y in range(len(possible_signals)):
+            for z in range(len(state_hrrs)):
+                preconvolved_matrix[x][y][z] = convolve(convolve(possible_wm[x], possible_signals[y]), state_hrrs[z])
+    return preconvolved_matrix
  
     
     

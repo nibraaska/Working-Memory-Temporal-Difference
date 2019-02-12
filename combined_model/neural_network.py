@@ -1,13 +1,13 @@
 import numpy as np
 
 class NeuralNetwork:
-    def __init__(self, inputs, outputs, discount, alpha):
+    def __init__(self, inputs, outputs, bias, discount, alpha):
         self.discount = discount
         self.alpha = alpha
         self.input = inputs
         self.output = outputs
         self.weights = np.random.randn(outputs, inputs)
-        self.bias = 1
+        self.bias = bias
         
     def feedforward(self, X):
         self.output = np.dot(self.weights, X) + self.bias
