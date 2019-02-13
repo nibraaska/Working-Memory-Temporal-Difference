@@ -5,18 +5,7 @@ import glob
 import gc
 import itertools
 
-# Preconvolve all hrrs to save time
-def preconvolve(possible_wm, length, possible_signals, state_hrrs):
-    preconvolved_matrix = np.zeros([possible_wm.size, possible_signals.size, state_hrrs.size, length])
-    for x in range(len(possible_wm)):
-        for y in range(len(possible_signals)):
-            for z in range(len(state_hrrs)):
-                preconvolved_matrix[x][y][z] = convolve(convolve(possible_wm[x], possible_signals[y]), state_hrrs[z])
-    return preconvolved_matrix
- 
-    
-    
-"Dr. Joshua Phillips' code"
+"Modified version of Dr. Joshua Phillips' code"
 # %load hrr.py
 #!/usr/bin/env python
 
@@ -106,8 +95,8 @@ class LTM:
     N = 1024
     normalized = False
     
-    def __init__(self,N=1024,normalized=False):
-        self.store = shelve.open(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)))
+    def __init__(self,name,N=1024,normalized=False):
+        self.store = shelve.open(self.tmpdir + "hrr_ltm_" + name)
         self.N = N
         self.normalized = normalized
         self.store[""] = hrri(self.N)
@@ -115,8 +104,10 @@ class LTM:
     def __del__(self):
         if (self.store is not None):
             self.store.close()
-            for f in glob.glob(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)) + ".*"):
-                os.remove(f)
+            
+    def clean(self):
+        for f in glob.glob(self.tmpdir + "hrr_ltm_" + "*"):
+            os.remove(f)
                 
     def lookup(self,q):
         "Lookup a single symbol, encode it if necessary"
@@ -130,6 +121,7 @@ class LTM:
         "Encode an HRR"
         if not isinstance(q,str):
             return None
+        name = q
         q = q.split('+')
         rep = numpy.zeros(self.N)
         for substr in q:
@@ -139,6 +131,7 @@ class LTM:
                 subrep = convolve(subrep,self.lookup(subsubstr))
             rep += subrep
         rep /= numpy.sqrt(len(q))
+        self.store[name] = rep
         return rep
     
     def print(self):
