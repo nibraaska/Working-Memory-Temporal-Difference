@@ -98,6 +98,7 @@ class LTM:
     def __init__(self,name,N=1024,normalized=False):
         self.store = shelve.open(self.tmpdir + "hrr_ltm_" + name)
         self.N = N
+        self.name = name
         self.normalized = normalized
         self.store[""] = hrri(self.N)
         
@@ -105,9 +106,12 @@ class LTM:
         if (self.store is not None):
             self.store.close()
             
-    def clean(self):
-        for f in glob.glob(self.tmpdir + "hrr_ltm_" + "*"):
-            os.remove(f)
+    def clean(self, total=False):
+        if total:
+            for f in glob.glob(self.tmpdir + "hrr_ltm_" + "*"):
+                os.remove(f)
+        else:
+            os.remove(self.tmpdir + "hrr_ltm_" + self.name)
                 
     def lookup(self,q):
         "Lookup a single symbol, encode it if necessary"
