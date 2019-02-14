@@ -21,20 +21,25 @@ class maze:
         # Goals for the maze with respect to task switches
         self.goals = goals
         
-    def step_maze(self):
-        return self.non_obs_switch_func()
+        self.signal = 0
+        
+    def step_maze(self, index=None):
+        return self.non_obs_switch_func(index)
      
     # Non observable task switching for any number of switches
-    def non_obs_switch_func(self):
+    def non_obs_switch_func(self, index=None):
         if self.non_obs_count == self.non_obs_task_switch:
             self.non_obs_count = 0
             self.switch_non_obs =  self.switch_non_obs + 1
             if self.switch_non_obs >= self.num_of_non_obs_tasks:
                 self.switch_non_obs = 0
         self.non_obs_count += 1
-        return self.switch_non_obs, self.obs_task_switch_func(self.switch_non_obs)
+        return self.obs_task_switch_func(self.switch_non_obs, index)
     
     # Observable task switching for any number of switching. Done randomly
-    def obs_task_switch_func(self, switch_non_obs):
-        signal = random.randint(0, self.num_of_obs_tasks)
-        return self.goals[switch_non_obs][signal - 1]
+    def obs_task_switch_func(self, switch_non_obs, index=None):
+        if not index:
+            self.signal = random.randint(0, self.num_of_obs_tasks - 1)
+        else:
+            self.signal = index + 1
+        return self.goals[switch_non_obs][self.signal - 1]
