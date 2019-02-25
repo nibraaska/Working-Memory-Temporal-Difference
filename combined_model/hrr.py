@@ -1,13 +1,14 @@
+"Modified version of Dr. Joshua Phillips' code"
+
+# %load hrr.py
+#!/usr/bin/env python
+
 import numpy
 import shelve
 import os
 import glob
 import gc
 import itertools
-
-"Modified version of Dr. Joshua Phillips' code"
-# %load hrr.py
-#!/usr/bin/env python
 
 def hrr(length,normalized=False):
     "Creates Holographic Reduced Representations"
@@ -82,7 +83,7 @@ def pow(x,k):
     ## inversion problem since x and sqrt(x^2) are not
     ## the same vector...
     x = numpy.fft.fft(x)
-    return numpy.real(numpy.fft.ifft(numpy.abs(x)*numpy.exp(1j*numpy.angle(numpy.power(x,k)))))
+    return numpy.real(numpy.fft.ifft(numpy.abs(x)*numpy.exp(1j*numpy.angle(numpy.power(x,k)))))             
 
 class LTM:
     "Long-term Memory"
@@ -125,21 +126,56 @@ class LTM:
         "Encode an HRR"
         if not isinstance(q,str):
             return None
-        name = q
         q = q.split('+')
         rep = numpy.zeros(self.N)
         for substr in q:
-            subrep = hrri(self.N)
             substr = sorted(substr.split('*'))
-            for subsubstr in substr:
-                subrep = convolve(subrep,self.lookup(subsubstr))
-            rep += subrep
+            key = '*'.join(substr)
+            if key not in self.store:
+                ## Base concepts
+                for i in range(len(substr)):
+                    self.lookup(substr[i])
+                ## Combinatorix
+                for L in range(1,len(substr)):
+                    for combination in itertools.combinations(substr,L+1):
+                        key = '*'.join(sorted(combination))
+                        print(key)
+                        if key not in self.store:
+                            subrep = hrri(self.N)
+                            for i in range(len(combination)):
+                                subrep = convolve(subrep,self.lookup(combination[i]))
+                            self.store[key] = subrep
+            rep += self.store[key]
         rep /= numpy.sqrt(len(q))
-        self.store[name] = rep
         return rep
     
+    def decode(self,q):
+        "Find closest match currently in memory."
+        if isinstance(q,str):
+            return None
+        match = None
+        best = -numpy.inf
+        for key in self.store.keys():
+            if numpy.dot(q,self.store[key]) > best:
+                best = numpy.dot(q,self.store[key])
+                match = key
+        return match
+    
+    def unpack(self,q):
+        "Unpack all possible symbols and subsymbols"
+        if not isinstance(q,str):
+            return None
+        q = str.split(q.lower(),'+')
+        reps = dict()
+        for substr in q:
+            substr = sorted(substr.split('*'))
+            for L in range(len(substr)):
+                for combination in itertools.combinations(substr,L+1):
+                    key = '*'.join(sorted(combination))
+                    reps[key] = self.encode(key)
+        return reps
+
     def print(self):
         print(self)
         for key in self.store.keys():
             print(key,self.store[key])
-                

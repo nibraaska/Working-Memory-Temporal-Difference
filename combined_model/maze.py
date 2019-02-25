@@ -34,7 +34,7 @@ class maze:
             if self.switch_non_obs >= self.num_of_non_obs_tasks:
                 self.switch_non_obs = 0
         self.non_obs_count += 1
-        return self.obs_task_switch_func(self.switch_non_obs, index)
+        return self.switch_non_obs, self.obs_task_switch_func(self.switch_non_obs, index)
     
     # Observable task switching for any number of switching. Done randomly
     def obs_task_switch_func(self, switch_non_obs, index=None):
