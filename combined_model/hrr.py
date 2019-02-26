@@ -101,7 +101,7 @@ class LTM:
         self.N = N
         self.name = name
         self.normalized = normalized
-        self.store[" "] = hrri(self.N)
+        self.store["I"] = hrri(self.N)
         
     def __del__(self):
         if (self.store is not None):
@@ -120,7 +120,6 @@ class LTM:
             return self.store[q]
         else:
             self.store[q] = hrr(self.N,self.normalized)
-            print("Making key from lookup:", q)
             return self.store[q]
     
     def encode(self,q):
@@ -146,7 +145,6 @@ class LTM:
                             for i in range(len(combination)):
                                 subrep = convolve(subrep,self.lookup(combination[i]))
                             self.store[key] = subrep
-                            print("Making key from inner most loop:", key)
             rep += self.store[key]
         rep /= numpy.sqrt(len(q))
         return rep
