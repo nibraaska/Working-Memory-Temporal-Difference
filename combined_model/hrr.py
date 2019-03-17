@@ -139,7 +139,7 @@ class LTM:
                 for L in range(1,len(substr)):
                     for combination in itertools.combinations(substr,L+1):
                         key = '*'.join(sorted(combination))
-                        print(key)
+#                        print(key)
                         if key not in self.store:
                             subrep = hrri(self.N)
                             for i in range(len(combination)):
