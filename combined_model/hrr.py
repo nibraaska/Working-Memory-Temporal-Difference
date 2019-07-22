@@ -1,6 +1,3 @@
-"Modified version of Dr. Joshua Phillips' code"
-
-# %load hrr.py
 #!/usr/bin/env python
 
 import numpy
@@ -83,7 +80,7 @@ def pow(x,k):
     ## inversion problem since x and sqrt(x^2) are not
     ## the same vector...
     x = numpy.fft.fft(x)
-    return numpy.real(numpy.fft.ifft(numpy.abs(x)*numpy.exp(1j*numpy.angle(numpy.power(x,k)))))             
+    return numpy.real(numpy.fft.ifft(numpy.abs(x)*numpy.exp(1j*numpy.angle(numpy.power(x,k)))))
 
 class LTM:
     "Long-term Memory"
@@ -96,23 +93,18 @@ class LTM:
     N = 1024
     normalized = False
     
-    def __init__(self,name,N=1024,normalized=False):
-        self.store = shelve.open(self.tmpdir + "hrr_ltm_" + name)
+    def __init__(self,N=1024,normalized=False):
+        # self.store = shelve.open(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)))
+        self.store = dict()
         self.N = N
-        self.name = name
         self.normalized = normalized
         self.store["I"] = hrri(self.N)
         
     def __del__(self):
-        if (self.store is not None):
+        if (self.store is not None and type(self.store) is not dict):
             self.store.close()
-            
-    def clean(self, total=False):
-        if total:
-            for f in glob.glob(self.tmpdir + "hrr_ltm_" + "*"):
+            for f in glob.glob(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)) + ".*"):
                 os.remove(f)
-        else:
-            os.remove(self.tmpdir + "hrr_ltm_" + self.name)
                 
     def lookup(self,q):
         "Lookup a single symbol, encode it if necessary"
@@ -139,7 +131,7 @@ class LTM:
                 for L in range(1,len(substr)):
                     for combination in itertools.combinations(substr,L+1):
                         key = '*'.join(sorted(combination))
-#                        print(key)
+                        # print(key)
                         if key not in self.store:
                             subrep = hrri(self.N)
                             for i in range(len(combination)):
@@ -179,3 +171,4 @@ class LTM:
         print(self)
         for key in self.store.keys():
             print(key,self.store[key])
+                
