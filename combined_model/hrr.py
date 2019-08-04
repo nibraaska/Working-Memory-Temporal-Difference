@@ -86,15 +86,15 @@ class LTM:
     "Long-term Memory"
     store = None
     ## Note - this is linux-specific
-    tmpdir = "/dev/shm/"
+    tmpdir = "/home/nibraas/Coding/Working-Memory-Temporal-Difference/hrrs/"
     ## Might want to choose something else in the future...
     
     ## Default HRR size
     N = 1024
     normalized = False
     
-    def __init__(self,N=1024,normalized=False):
-        # self.store = shelve.open(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)))
+    def __init__(self,name,N=1024,normalized=False):
+        self.store = shelve.open(self.tmpdir + "hrr_ltm_" + name + ".db")
         self.store = dict()
         self.N = N
         self.normalized = normalized
@@ -171,4 +171,7 @@ class LTM:
         print(self)
         for key in self.store.keys():
             print(key,self.store[key])
+            
+    def count(self):
+        return len(self.store.keys())
                 
