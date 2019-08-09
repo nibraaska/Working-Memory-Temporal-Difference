@@ -6,6 +6,7 @@ import os
 import glob
 import gc
 import itertools
+import pickle
 
 def hrr(length,normalized=False):
     "Creates Holographic Reduced Representations"
@@ -93,9 +94,13 @@ class LTM:
     N = 1024
     normalized = False
     
-    def __init__(self,name,N=1024,normalized=False):
-        self.store = shelve.open(self.tmpdir + "hrr_ltm_" + name + ".db")
-        self.store = dict()
+    def __init__(self,N=1024,normalized=False,name=""):
+        # self.store = shelve.open(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)))
+        if name == "":
+            self.store = dict()
+        else:
+            with open(self.tmpdir + name + '.p', 'rb') as fp:
+                self.store = pickle.load(fp)
         self.N = N
         self.normalized = normalized
         self.store["I"] = hrri(self.N)
@@ -174,4 +179,8 @@ class LTM:
             
     def count(self):
         return len(self.store.keys())
+    
+    def save(self,name):
+        with open(self.tmpdir + name + '.p', 'wb') as fp:
+            pickle.dump(self.store, fp, protocol=pickle.HIGHEST_PROTOCOL)
                 
