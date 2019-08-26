@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import numpy
+import cupy as cp
 import shelve
 import os
 import glob
@@ -153,8 +154,8 @@ class LTM:
         match = None
         best = -numpy.inf
         for key in self.store.keys():
-            if numpy.dot(q,self.store[key]) > best:
-                best = numpy.dot(q,self.store[key])
+            if cp.dot(q,self.store[key]) > best:
+                best = cp.dot(q,self.store[key])
                 match = key
         return match
     
