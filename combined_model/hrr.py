@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import numpy
-import cupy as cp
 import shelve
 import os
 import glob
@@ -31,30 +30,37 @@ def hrrs(length,n=1,normalized=False):
     "Creates a matrix of n HRRs, one per row."
     return numpy.row_stack([hrr(length,normalized) for x in range(n)])
 
+
 def inv(x):
     "Computes the -exact- inverse of an HRR."
     x = numpy.fft.fft(x)
     return numpy.real(numpy.fft.ifft((1.0/numpy.abs(x))*numpy.exp(-1j*numpy.angle(x))))
 
+
 def pinv(x):
     "Computes the pseudo-inverse of an HRR."
     return numpy.real(numpy.fft.ifft(numpy.conj(numpy.fft.fft(x))))
+
 
 def convolve(x,y):
     "Computes the circular convolution of two HRRs."
     return numpy.real(numpy.fft.ifft(numpy.fft.fft(x)*numpy.fft.fft(y)))
 
+
 def mconvolve(x):
     "Computes the circular convolution of a matrix of HRRs."
     return numpy.real(numpy.fft.ifft(numpy.apply_along_axis(numpy.prod,0,numpy.apply_along_axis(numpy.fft.fft,1,x))))
     
+
 def oconvolve(x,y):
     "Computes the convolution of all pairs of HRRs in the x and y matrices."
     return numpy.row_stack([ [convolve(x[i,:],y[j,:]) for i in range(x.shape[0]) ] for j in range(y.shape[0]) ])
 
+
 def correlate(x,y,invf=pinv):
     "Computes the correlation of the two provided HRRs."
     return convolve(x,invf(y))
+
 
 def compose(x,y):
     "Composes two HRRs using addition in angle space. (in-progress)"
@@ -62,14 +68,17 @@ def compose(x,y):
     y = numpy.fft.fft(y)
     return numpy.real(numpy.fft.ifft((x+y)/2.0))
 
+
 def mcompose(x):
     "Composes a matrix of HRRs, one per row, using addition in angle space. (in-progress)"
     x = numpy.apply_along_axis(numpy.fft.fft,1,x)
     return numpy.real(numpy.fft.ifft(numpy.apply_along_axis(numpy.mean,0,x)))
 
+
 def decompose(x,y):
     "Decomposes two HRRs using addition in angle space. (in-progress)"
     return compose(x,-y)
+
 
 def pow(x,k):
     "Compute the convolutive power of an HRR."
@@ -106,12 +115,14 @@ class LTM:
         self.normalized = normalized
         self.store["I"] = hrri(self.N)
         
+    
     def __del__(self):
         if (self.store is not None and type(self.store) is not dict):
             self.store.close()
             for f in glob.glob(self.tmpdir + "hrr_ltm_" + str(os.getpid()) + "_" + str(id(self)) + ".*"):
                 os.remove(f)
-                
+       
+    
     def lookup(self,q):
         "Lookup a single symbol, encode it if necessary"
         if q in self.store:
@@ -119,6 +130,7 @@ class LTM:
         else:
             self.store[q] = hrr(self.N,self.normalized)
             return self.store[q]
+    
     
     def encode(self,q):
         "Encode an HRR"
@@ -147,6 +159,7 @@ class LTM:
         rep /= numpy.sqrt(len(q))
         return rep
     
+    
     def decode(self,q):
         "Find closest match currently in memory."
         if isinstance(q,str):
@@ -154,10 +167,11 @@ class LTM:
         match = None
         best = -numpy.inf
         for key in self.store.keys():
-            if cp.dot(q,self.store[key]) > best:
-                best = cp.dot(q,self.store[key])
+            if numpy.dot(q,self.store[key]) > best:
+                best = numpy.dot(q,self.store[key])
                 match = key
         return match
+    
     
     def unpack(self,q):
         "Unpack all possible symbols and subsymbols"
@@ -173,13 +187,20 @@ class LTM:
                     reps[key] = self.encode(key)
         return reps
 
+    
     def print(self):
         print(self)
         for key in self.store.keys():
             print(key,self.store[key])
-            
+          
+    
     def count(self):
         return len(self.store.keys())
+       
+    
+    def clear(self):
+        self.store = dict()
+    
     
     def save(self,name):
         with open(self.tmpdir + name + '.p', 'wb') as fp:
