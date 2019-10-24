@@ -1,6 +1,0 @@
-Run: 0, Accuracy: 55.62556255625562
-Run: 1, Accuracy: 52.665266526652665
-Run: 2, Accuracy: 34.673467346734675
-Run: 3, Accuracy: 40.79407940794079
-Run: 4, Accuracy: 48.6948694869487
-Run: 5, Accuracy: 59.815981598159816
