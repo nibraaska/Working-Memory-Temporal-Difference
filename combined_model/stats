@@ -1,5 +1,0 @@
-#!/bin/bash
-
-for i in {76..100}; do
-	python model.py $i > "all_stats/static_t_obs_stats/${i}.txt" &
-done;
