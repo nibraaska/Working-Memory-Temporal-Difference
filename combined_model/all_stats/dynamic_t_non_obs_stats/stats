@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for i in {1..10}; do
+for i in {151..200}; do
 	python model.py $i > "${i}.txt" &
 done;
