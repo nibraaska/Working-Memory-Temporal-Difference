@@ -1,0 +1,5 @@
+#!/bin/bash
+
+for i in {51..51}; do
+	python model2.py $i > "${i}.txt" &
+done;

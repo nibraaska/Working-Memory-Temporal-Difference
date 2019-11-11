@@ -1,0 +1,22 @@
+#!/bin/bash
+
+#for i in {1..2}; do
+#	for j in 0.0002 0.0003 0.0004 0.0005 0.0006; do
+#		for k in 0.5 0.6 0.7 0.8 0.9 1.0; do
+#			python model.py $i $j $k > "${i}_${j}_${k}.txt" & 
+#		done;
+#	done;
+#done;
+
+
+
+
+
+
+for i in 1; do
+	for j in 0.0002 0.0003; do
+		for k in 0.5 0.6; do
+			python model.py $i $j $k > "${i}_${j}_${k}.txt" & 
+		done;
+	done;
+done;
