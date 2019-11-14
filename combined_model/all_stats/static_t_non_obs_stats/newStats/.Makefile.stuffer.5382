@@ -1,0 +1,36 @@
+all : targets
+
+target0 : 
+	bash -c "python model2.py 50 > 50.txt"
+
+target1 : 
+	bash -c "python model2.py 51 > 51.txt"
+
+target2 : 
+	bash -c "python model2.py 52 > 52.txt"
+
+target3 : 
+	bash -c "python model2.py 53 > 53.txt"
+
+target4 : 
+	bash -c "python model2.py 54 > 54.txt"
+
+target5 : 
+	bash -c "python model2.py 55 > 55.txt"
+
+target6 : 
+	bash -c "python model2.py 56 > 56.txt"
+
+target7 : 
+	bash -c "python model2.py 57 > 57.txt"
+
+target8 : 
+	bash -c "python model2.py 58 > 58.txt"
+
+target9 : 
+	bash -c "python model2.py 59 > 59.txt"
+
+target10 : 
+	bash -c "python model2.py 60 > 60.txt"
+
+targets : target0 target1 target2 target3 target4 target5 target6 target7 target8 target9 target10 
