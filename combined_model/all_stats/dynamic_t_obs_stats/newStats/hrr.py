@@ -50,7 +50,7 @@ def convolve(x,y):
 def mconvolve(x):
     "Computes the circular convolution of a matrix of HRRs."
     return numpy.real(numpy.fft.ifft(numpy.apply_along_axis(numpy.prod,0,numpy.apply_along_axis(numpy.fft.fft,1,x))))
-
+    
 
 def oconvolve(x,y):
     "Computes the convolution of all pairs of HRRs in the x and y matrices."
@@ -159,33 +159,6 @@ class LTM:
         rep /= numpy.sqrt(len(q))
         return rep
     
-    def encode_val(self,q,val):
-        "Encode an HRR"
-        if not isinstance(q,str):
-            return None
-        q = q.split('+')
-        rep = numpy.zeros(self.N)
-        for substr in q:
-            substr = sorted(substr.split('*'))
-            key = '*'.join(substr)
-            if key not in self.store:
-                ## Base concepts
-                for i in range(len(substr)):
-                    self.lookup(substr[i])
-                ## Combinatorix
-                for L in range(1,len(substr)):
-                    for combination in itertools.combinations(substr,L+1):
-                        key = '*'.join(sorted(combination))
-                        # print(key)
-                        if key not in self.store:
-                            subrep = val
-                            for i in range(len(combination)):
-                                subrep = convolve(subrep,self.lookup(combination[i]))
-                            self.store[key] = subrep
-            rep += self.store[key]
-        rep /= numpy.sqrt(len(q))
-        return rep
-    
     
     def decode(self,q):
         "Find closest match currently in memory."
@@ -213,9 +186,6 @@ class LTM:
                     key = '*'.join(sorted(combination))
                     reps[key] = self.encode(key)
         return reps
-    
-    def getStore(self):
-        return self.store
 
     
     def print(self):
@@ -235,4 +205,4 @@ class LTM:
     def save(self,name):
         with open(self.tmpdir + name + '.p', 'wb') as fp:
             pickle.dump(self.store, fp, protocol=pickle.HIGHEST_PROTOCOL)
-
+                

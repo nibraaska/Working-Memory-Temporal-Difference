@@ -379,26 +379,26 @@ def reset():
 episodes = 100000
 
 # Hrr parameters
-hrr_length = 7168
+hrr_length = 13312
 normalized = True
 
 # How many steps to take before quiting
 steps_till_quit = 100
 
 # Task
-signals = ["I"]
-goals = [[0], [4], [7], [10], [13]]
+signals = ["R", "G"]
+goals = [[2, 8], [ 13, 18]]
 
 # Maze parameters
 size_of_maze = 20
-non_obs_task_switch_rate = 500
+non_obs_task_switch_rate = 1000
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
 
 # Arguments for neural network
 input_size = hrr_length
 output_size = 1
-discount = 0.7
+discount = 0.9
 alpha = 0.1
 
 # Reward for temporal difference learning
@@ -407,7 +407,7 @@ reward_good = 0
 
 # Dynamic atrs hyperparameters
 num_of_atrs = 1
-atr_alpha = 0.00063
+atr_alpha = 0.0001
 atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
 atr_threshold = -0.5
 threshold_vals = []
@@ -423,7 +423,7 @@ e_soft = 0.00001
 rand_on = 1
 
 # Eligibility trace rate
-eli_lambda = 0.0
+eli_lambda = 0.01
 
 # Neural network
 weights = hrr(hrr_length, normalized)
@@ -488,7 +488,7 @@ for x in range(episodes):
     
     # Set the goal for the tast
     if x%non_obs_task_switch_rate == 0:
-        non_obs = choice([i for i in range(len(goals)) if i not in [non_obs]])
+        non_obs = choice([i for i in range(len(goals))])
         changed = True
     if num_obs_tasks == 1:
         goal = goals[non_obs][0]
@@ -630,7 +630,7 @@ for x in range(episodes):
             step_store += [steps_till_quit]
             
 #    update_progress(x / episodes, x)
-    
+   
     if live_graph:
         plt.pause(0.001)
     
@@ -709,7 +709,7 @@ if create_plots:
 # In[ ]:
 
 
-# print(atr_values)
+print(atr_values)
 
 
 # In[ ]:

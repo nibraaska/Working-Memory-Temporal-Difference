@@ -41,7 +41,7 @@ seed(seed_val)
 # In[ ]:
 
 
-def plot_all_graphs():
+def plot_all_graphs(save=False, iteration=0):
     get_ipython().run_line_magic('matplotlib', 'inline')
     fig, axes = plt.subplots(nrows=num_of_atrs, ncols=num_obs_tasks+1)
     fig.set_figwidth(15)
@@ -123,6 +123,10 @@ def plot_all_graphs():
                 y_for_no_rwd += 1
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    if save:
+        plt.savefig("plots/run_{0}".format(iteration), dpi=fig.dpi)
+    else:
+        plt.show()
     plt.show()
     
 def plot_graph(data):
@@ -379,15 +383,15 @@ def reset():
 episodes = 100000
 
 # Hrr parameters
-hrr_length = 10240
+hrr_length = 13312
 normalized = True
 
 # How many steps to take before quiting
-steps_till_quit = 50
+steps_till_quit = 100
 
 # Task
 signals = ["R", "G", "B"]
-goals = [[0, 7, 12]]
+goals = [[3, 10, 14]]
 
 # Maze parameters
 size_of_maze = 20
@@ -399,7 +403,7 @@ num_obs_tasks = len(signals)
 input_size = hrr_length
 output_size = 1
 discount = 0.9
-alpha = 0.2
+alpha = 0.3
 
 # Reward for temporal difference learning
 reward_bad = -1
@@ -423,7 +427,7 @@ e_soft = 0.00001
 rand_on = 1
 
 # Eligibility trace rate
-eli_lambda = 0.01
+eli_lambda = 0.0
 
 # Neural network
 weights = hrr(hrr_length, normalized)
@@ -630,7 +634,9 @@ for x in range(episodes):
             step_store += [steps_till_quit]
             
 #    update_progress(x / episodes, x)
-    
+    if (x%100) == 0:
+        plot_all_graphs(True, x)   
+
     if live_graph:
         plt.pause(0.001)
     

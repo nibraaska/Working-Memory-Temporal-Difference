@@ -1,0 +1,153 @@
+all : targets
+
+target0 : 
+	bash -c "python model2.py 101 > 101.txt"
+
+target1 : 
+	bash -c "python model2.py 102 > 102.txt"
+
+target2 : 
+	bash -c "python model2.py 103 > 103.txt"
+
+target3 : 
+	bash -c "python model2.py 104 > 104.txt"
+
+target4 : 
+	bash -c "python model2.py 105 > 105.txt"
+
+target5 : 
+	bash -c "python model2.py 106 > 106.txt"
+
+target6 : 
+	bash -c "python model2.py 107 > 107.txt"
+
+target7 : 
+	bash -c "python model2.py 108 > 108.txt"
+
+target8 : 
+	bash -c "python model2.py 109 > 109.txt"
+
+target9 : 
+	bash -c "python model2.py 110 > 110.txt"
+
+target10 : 
+	bash -c "python model2.py 111 > 111.txt"
+
+target11 : 
+	bash -c "python model2.py 112 > 112.txt"
+
+target12 : 
+	bash -c "python model2.py 113 > 113.txt"
+
+target13 : 
+	bash -c "python model2.py 114 > 114.txt"
+
+target14 : 
+	bash -c "python model2.py 115 > 115.txt"
+
+target15 : 
+	bash -c "python model2.py 116 > 116.txt"
+
+target16 : 
+	bash -c "python model2.py 117 > 117.txt"
+
+target17 : 
+	bash -c "python model2.py 118 > 118.txt"
+
+target18 : 
+	bash -c "python model2.py 119 > 119.txt"
+
+target19 : 
+	bash -c "python model2.py 120 > 120.txt"
+
+target20 : 
+	bash -c "python model2.py 121 > 121.txt"
+
+target21 : 
+	bash -c "python model2.py 122 > 122.txt"
+
+target22 : 
+	bash -c "python model2.py 123 > 123.txt"
+
+target23 : 
+	bash -c "python model2.py 124 > 124.txt"
+
+target24 : 
+	bash -c "python model2.py 125 > 125.txt"
+
+target25 : 
+	bash -c "python model2.py 126 > 126.txt"
+
+target26 : 
+	bash -c "python model2.py 127 > 127.txt"
+
+target27 : 
+	bash -c "python model2.py 128 > 128.txt"
+
+target28 : 
+	bash -c "python model2.py 129 > 129.txt"
+
+target29 : 
+	bash -c "python model2.py 130 > 130.txt"
+
+target30 : 
+	bash -c "python model2.py 131 > 131.txt"
+
+target31 : 
+	bash -c "python model2.py 132 > 132.txt"
+
+target32 : 
+	bash -c "python model2.py 133 > 133.txt"
+
+target33 : 
+	bash -c "python model2.py 134 > 134.txt"
+
+target34 : 
+	bash -c "python model2.py 135 > 135.txt"
+
+target35 : 
+	bash -c "python model2.py 136 > 136.txt"
+
+target36 : 
+	bash -c "python model2.py 137 > 137.txt"
+
+target37 : 
+	bash -c "python model2.py 138 > 138.txt"
+
+target38 : 
+	bash -c "python model2.py 139 > 139.txt"
+
+target39 : 
+	bash -c "python model2.py 140 > 140.txt"
+
+target40 : 
+	bash -c "python model2.py 141 > 141.txt"
+
+target41 : 
+	bash -c "python model2.py 142 > 142.txt"
+
+target42 : 
+	bash -c "python model2.py 143 > 143.txt"
+
+target43 : 
+	bash -c "python model2.py 144 > 144.txt"
+
+target44 : 
+	bash -c "python model2.py 145 > 145.txt"
+
+target45 : 
+	bash -c "python model2.py 146 > 146.txt"
+
+target46 : 
+	bash -c "python model2.py 147 > 147.txt"
+
+target47 : 
+	bash -c "python model2.py 148 > 148.txt"
+
+target48 : 
+	bash -c "python model2.py 149 > 149.txt"
+
+target49 : 
+	bash -c "python model2.py 150 > 150.txt"
+
+targets : target0 target1 target2 target3 target4 target5 target6 target7 target8 target9 target10 target11 target12 target13 target14 target15 target16 target17 target18 target19 target20 target21 target22 target23 target24 target25 target26 target27 target28 target29 target30 target31 target32 target33 target34 target35 target36 target37 target38 target39 target40 target41 target42 target43 target44 target45 target46 target47 target48 target49 
