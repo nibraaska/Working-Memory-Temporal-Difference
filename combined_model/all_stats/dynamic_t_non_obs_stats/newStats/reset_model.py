@@ -346,21 +346,19 @@ def get_opt_steps(start, goal, size_of_maze):
 # In[ ]:
 
 
-def start_testing():
-    global testing, rand_on, alpha, threshold_alpha, atr_alpha
+def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
     testing = True
     rand_on = 0
     alpha = 0.01
     threshold_alpha = 0
     atr_alpha = 0
+    return testing, rand_on, alpha, threshold_alpha, atr_alpha
 
 
 # In[ ]:
 
 
-def reset():
-    seed(seed_val)
-    global num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
+def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility):
     num_of_atrs += 1
     atr_values = [1 * reward_good] * num_of_atrs
     if dynamic_threshold:
@@ -370,6 +368,7 @@ def reset():
     ltm = LTM(int(hrr_length), normalized)
     weights = hrr(int(hrr_length), normalized)
     eligibility = np.zeros(int(hrr_length))
+    return num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
 
 
 # In[ ]:
@@ -500,7 +499,7 @@ for x in range(episodes):
     
     # Start testing phase
     if testing == False and x > ((episodes*percent_check) / 10):
-        start_testing()
+        testing, rand_on, alpha, threshold_alpha, atr_alpha = start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha)
         
     for y in range(steps_till_quit):
         if create_plots:
@@ -594,7 +593,7 @@ for x in range(episodes):
         if sarsa_error > fabs(threshold) or sarsa_error < -fabs(threshold):
             
             if np.mean(atr_values) < atr_threshold:
-                reset()
+                num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility)
             
             if create_plots:
                 switch_error += [sarsa_error]

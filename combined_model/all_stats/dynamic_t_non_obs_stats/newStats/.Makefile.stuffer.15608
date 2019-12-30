@@ -1,0 +1,303 @@
+all : targets
+
+target0 : 
+	bash -c "python3 reset_model.py 1 > reset/hard_reset_1.txt"
+
+target1 : 
+	bash -c "python3 reset_model.py 2 > reset/hard_reset_2.txt"
+
+target2 : 
+	bash -c "python3 reset_model.py 3 > reset/hard_reset_3.txt"
+
+target3 : 
+	bash -c "python3 reset_model.py 4 > reset/hard_reset_4.txt"
+
+target4 : 
+	bash -c "python3 reset_model.py 5 > reset/hard_reset_5.txt"
+
+target5 : 
+	bash -c "python3 reset_model.py 6 > reset/hard_reset_6.txt"
+
+target6 : 
+	bash -c "python3 reset_model.py 7 > reset/hard_reset_7.txt"
+
+target7 : 
+	bash -c "python3 reset_model.py 8 > reset/hard_reset_8.txt"
+
+target8 : 
+	bash -c "python3 reset_model.py 9 > reset/hard_reset_9.txt"
+
+target9 : 
+	bash -c "python3 reset_model.py 10 > reset/hard_reset_10.txt"
+
+target10 : 
+	bash -c "python3 reset_model.py 11 > reset/hard_reset_11.txt"
+
+target11 : 
+	bash -c "python3 reset_model.py 12 > reset/hard_reset_12.txt"
+
+target12 : 
+	bash -c "python3 reset_model.py 13 > reset/hard_reset_13.txt"
+
+target13 : 
+	bash -c "python3 reset_model.py 14 > reset/hard_reset_14.txt"
+
+target14 : 
+	bash -c "python3 reset_model.py 15 > reset/hard_reset_15.txt"
+
+target15 : 
+	bash -c "python3 reset_model.py 16 > reset/hard_reset_16.txt"
+
+target16 : 
+	bash -c "python3 reset_model.py 17 > reset/hard_reset_17.txt"
+
+target17 : 
+	bash -c "python3 reset_model.py 18 > reset/hard_reset_18.txt"
+
+target18 : 
+	bash -c "python3 reset_model.py 19 > reset/hard_reset_19.txt"
+
+target19 : 
+	bash -c "python3 reset_model.py 20 > reset/hard_reset_20.txt"
+
+target20 : 
+	bash -c "python3 reset_model.py 21 > reset/hard_reset_21.txt"
+
+target21 : 
+	bash -c "python3 reset_model.py 22 > reset/hard_reset_22.txt"
+
+target22 : 
+	bash -c "python3 reset_model.py 23 > reset/hard_reset_23.txt"
+
+target23 : 
+	bash -c "python3 reset_model.py 24 > reset/hard_reset_24.txt"
+
+target24 : 
+	bash -c "python3 reset_model.py 25 > reset/hard_reset_25.txt"
+
+target25 : 
+	bash -c "python3 reset_model.py 26 > reset/hard_reset_26.txt"
+
+target26 : 
+	bash -c "python3 reset_model.py 27 > reset/hard_reset_27.txt"
+
+target27 : 
+	bash -c "python3 reset_model.py 28 > reset/hard_reset_28.txt"
+
+target28 : 
+	bash -c "python3 reset_model.py 29 > reset/hard_reset_29.txt"
+
+target29 : 
+	bash -c "python3 reset_model.py 30 > reset/hard_reset_30.txt"
+
+target30 : 
+	bash -c "python3 reset_model.py 31 > reset/hard_reset_31.txt"
+
+target31 : 
+	bash -c "python3 reset_model.py 32 > reset/hard_reset_32.txt"
+
+target32 : 
+	bash -c "python3 reset_model.py 33 > reset/hard_reset_33.txt"
+
+target33 : 
+	bash -c "python3 reset_model.py 34 > reset/hard_reset_34.txt"
+
+target34 : 
+	bash -c "python3 reset_model.py 35 > reset/hard_reset_35.txt"
+
+target35 : 
+	bash -c "python3 reset_model.py 36 > reset/hard_reset_36.txt"
+
+target36 : 
+	bash -c "python3 reset_model.py 37 > reset/hard_reset_37.txt"
+
+target37 : 
+	bash -c "python3 reset_model.py 38 > reset/hard_reset_38.txt"
+
+target38 : 
+	bash -c "python3 reset_model.py 39 > reset/hard_reset_39.txt"
+
+target39 : 
+	bash -c "python3 reset_model.py 40 > reset/hard_reset_40.txt"
+
+target40 : 
+	bash -c "python3 reset_model.py 41 > reset/hard_reset_41.txt"
+
+target41 : 
+	bash -c "python3 reset_model.py 42 > reset/hard_reset_42.txt"
+
+target42 : 
+	bash -c "python3 reset_model.py 43 > reset/hard_reset_43.txt"
+
+target43 : 
+	bash -c "python3 reset_model.py 44 > reset/hard_reset_44.txt"
+
+target44 : 
+	bash -c "python3 reset_model.py 45 > reset/hard_reset_45.txt"
+
+target45 : 
+	bash -c "python3 reset_model.py 46 > reset/hard_reset_46.txt"
+
+target46 : 
+	bash -c "python3 reset_model.py 47 > reset/hard_reset_47.txt"
+
+target47 : 
+	bash -c "python3 reset_model.py 48 > reset/hard_reset_48.txt"
+
+target48 : 
+	bash -c "python3 reset_model.py 49 > reset/hard_reset_49.txt"
+
+target49 : 
+	bash -c "python3 reset_model.py 50 > reset/hard_reset_50.txt"
+
+target50 : 
+	bash -c "python3 reset_model.py 51 > reset/hard_reset_51.txt"
+
+target51 : 
+	bash -c "python3 reset_model.py 52 > reset/hard_reset_52.txt"
+
+target52 : 
+	bash -c "python3 reset_model.py 53 > reset/hard_reset_53.txt"
+
+target53 : 
+	bash -c "python3 reset_model.py 54 > reset/hard_reset_54.txt"
+
+target54 : 
+	bash -c "python3 reset_model.py 55 > reset/hard_reset_55.txt"
+
+target55 : 
+	bash -c "python3 reset_model.py 56 > reset/hard_reset_56.txt"
+
+target56 : 
+	bash -c "python3 reset_model.py 57 > reset/hard_reset_57.txt"
+
+target57 : 
+	bash -c "python3 reset_model.py 58 > reset/hard_reset_58.txt"
+
+target58 : 
+	bash -c "python3 reset_model.py 59 > reset/hard_reset_59.txt"
+
+target59 : 
+	bash -c "python3 reset_model.py 60 > reset/hard_reset_60.txt"
+
+target60 : 
+	bash -c "python3 reset_model.py 61 > reset/hard_reset_61.txt"
+
+target61 : 
+	bash -c "python3 reset_model.py 62 > reset/hard_reset_62.txt"
+
+target62 : 
+	bash -c "python3 reset_model.py 63 > reset/hard_reset_63.txt"
+
+target63 : 
+	bash -c "python3 reset_model.py 64 > reset/hard_reset_64.txt"
+
+target64 : 
+	bash -c "python3 reset_model.py 65 > reset/hard_reset_65.txt"
+
+target65 : 
+	bash -c "python3 reset_model.py 66 > reset/hard_reset_66.txt"
+
+target66 : 
+	bash -c "python3 reset_model.py 67 > reset/hard_reset_67.txt"
+
+target67 : 
+	bash -c "python3 reset_model.py 68 > reset/hard_reset_68.txt"
+
+target68 : 
+	bash -c "python3 reset_model.py 69 > reset/hard_reset_69.txt"
+
+target69 : 
+	bash -c "python3 reset_model.py 70 > reset/hard_reset_70.txt"
+
+target70 : 
+	bash -c "python3 reset_model.py 71 > reset/hard_reset_71.txt"
+
+target71 : 
+	bash -c "python3 reset_model.py 72 > reset/hard_reset_72.txt"
+
+target72 : 
+	bash -c "python3 reset_model.py 73 > reset/hard_reset_73.txt"
+
+target73 : 
+	bash -c "python3 reset_model.py 74 > reset/hard_reset_74.txt"
+
+target74 : 
+	bash -c "python3 reset_model.py 75 > reset/hard_reset_75.txt"
+
+target75 : 
+	bash -c "python3 reset_model.py 76 > reset/hard_reset_76.txt"
+
+target76 : 
+	bash -c "python3 reset_model.py 77 > reset/hard_reset_77.txt"
+
+target77 : 
+	bash -c "python3 reset_model.py 78 > reset/hard_reset_78.txt"
+
+target78 : 
+	bash -c "python3 reset_model.py 79 > reset/hard_reset_79.txt"
+
+target79 : 
+	bash -c "python3 reset_model.py 80 > reset/hard_reset_80.txt"
+
+target80 : 
+	bash -c "python3 reset_model.py 81 > reset/hard_reset_81.txt"
+
+target81 : 
+	bash -c "python3 reset_model.py 82 > reset/hard_reset_82.txt"
+
+target82 : 
+	bash -c "python3 reset_model.py 83 > reset/hard_reset_83.txt"
+
+target83 : 
+	bash -c "python3 reset_model.py 84 > reset/hard_reset_84.txt"
+
+target84 : 
+	bash -c "python3 reset_model.py 85 > reset/hard_reset_85.txt"
+
+target85 : 
+	bash -c "python3 reset_model.py 86 > reset/hard_reset_86.txt"
+
+target86 : 
+	bash -c "python3 reset_model.py 87 > reset/hard_reset_87.txt"
+
+target87 : 
+	bash -c "python3 reset_model.py 88 > reset/hard_reset_88.txt"
+
+target88 : 
+	bash -c "python3 reset_model.py 89 > reset/hard_reset_89.txt"
+
+target89 : 
+	bash -c "python3 reset_model.py 90 > reset/hard_reset_90.txt"
+
+target90 : 
+	bash -c "python3 reset_model.py 91 > reset/hard_reset_91.txt"
+
+target91 : 
+	bash -c "python3 reset_model.py 92 > reset/hard_reset_92.txt"
+
+target92 : 
+	bash -c "python3 reset_model.py 93 > reset/hard_reset_93.txt"
+
+target93 : 
+	bash -c "python3 reset_model.py 94 > reset/hard_reset_94.txt"
+
+target94 : 
+	bash -c "python3 reset_model.py 95 > reset/hard_reset_95.txt"
+
+target95 : 
+	bash -c "python3 reset_model.py 96 > reset/hard_reset_96.txt"
+
+target96 : 
+	bash -c "python3 reset_model.py 97 > reset/hard_reset_97.txt"
+
+target97 : 
+	bash -c "python3 reset_model.py 98 > reset/hard_reset_98.txt"
+
+target98 : 
+	bash -c "python3 reset_model.py 99 > reset/hard_reset_99.txt"
+
+target99 : 
+	bash -c "python3 reset_model.py 100 > reset/hard_reset_100.txt"
+
+targets : target0 target1 target2 target3 target4 target5 target6 target7 target8 target9 target10 target11 target12 target13 target14 target15 target16 target17 target18 target19 target20 target21 target22 target23 target24 target25 target26 target27 target28 target29 target30 target31 target32 target33 target34 target35 target36 target37 target38 target39 target40 target41 target42 target43 target44 target45 target46 target47 target48 target49 target50 target51 target52 target53 target54 target55 target56 target57 target58 target59 target60 target61 target62 target63 target64 target65 target66 target67 target68 target69 target70 target71 target72 target73 target74 target75 target76 target77 target78 target79 target80 target81 target82 target83 target84 target85 target86 target87 target88 target89 target90 target91 target92 target93 target94 target95 target96 target97 target98 target99 
