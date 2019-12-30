@@ -359,10 +359,10 @@ def start_testing():
 
 
 def reset():
-#    seed(seed_val)
-#    global num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
-#    num_of_atrs += 1
-#    atr_values = [1 * reward_good] * num_of_atrs
+    seed(seed_val)
+    global num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
+    num_of_atrs += 1
+    atr_values = [1 * reward_good] * num_of_atrs
     if dynamic_threshold:
         threshold = 1
 #    hrr_length = (num_of_atrs * hrr_length) / (num_of_atrs - 1)
@@ -379,7 +379,7 @@ def reset():
 episodes = 100000
 
 # Hrr parameters
-hrr_length = 15360+(1024*5)
+hrr_length = 1024*15
 normalized = True
 
 # How many steps to take before quiting
@@ -390,8 +390,8 @@ signals = ["I"]
 goals = [[0], [4], [7], [10], [13]]
 
 # Maze parameters
-size_of_maze = 15
-non_obs_task_switch_rate = 1000
+size_of_maze = 20
+non_obs_task_switch_rate = 500
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
 
@@ -406,8 +406,8 @@ reward_bad = -1
 reward_good = 0
 
 # Dynamic atrs hyperparameters
-num_of_atrs = num_non_obs_tasks
-atr_alpha = 0.00001
+num_of_atrs = 1
+atr_alpha = 0.00063
 atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
 atr_threshold = -0.5
 threshold_vals = []
@@ -791,5 +791,7 @@ if create_plots:
 
 
 # In[ ]:
+
+
 
 

@@ -1,0 +1,303 @@
+all : targets
+
+target0 : 
+	bash -c "python model.py 1 > no_reset_1.txt"
+
+target1 : 
+	bash -c "python model.py 2 > no_reset_2.txt"
+
+target2 : 
+	bash -c "python model.py 3 > no_reset_3.txt"
+
+target3 : 
+	bash -c "python model.py 4 > no_reset_4.txt"
+
+target4 : 
+	bash -c "python model.py 5 > no_reset_5.txt"
+
+target5 : 
+	bash -c "python model.py 6 > no_reset_6.txt"
+
+target6 : 
+	bash -c "python model.py 7 > no_reset_7.txt"
+
+target7 : 
+	bash -c "python model.py 8 > no_reset_8.txt"
+
+target8 : 
+	bash -c "python model.py 9 > no_reset_9.txt"
+
+target9 : 
+	bash -c "python model.py 10 > no_reset_10.txt"
+
+target10 : 
+	bash -c "python model.py 11 > no_reset_11.txt"
+
+target11 : 
+	bash -c "python model.py 12 > no_reset_12.txt"
+
+target12 : 
+	bash -c "python model.py 13 > no_reset_13.txt"
+
+target13 : 
+	bash -c "python model.py 14 > no_reset_14.txt"
+
+target14 : 
+	bash -c "python model.py 15 > no_reset_15.txt"
+
+target15 : 
+	bash -c "python model.py 16 > no_reset_16.txt"
+
+target16 : 
+	bash -c "python model.py 17 > no_reset_17.txt"
+
+target17 : 
+	bash -c "python model.py 18 > no_reset_18.txt"
+
+target18 : 
+	bash -c "python model.py 19 > no_reset_19.txt"
+
+target19 : 
+	bash -c "python model.py 20 > no_reset_20.txt"
+
+target20 : 
+	bash -c "python model.py 21 > no_reset_21.txt"
+
+target21 : 
+	bash -c "python model.py 22 > no_reset_22.txt"
+
+target22 : 
+	bash -c "python model.py 23 > no_reset_23.txt"
+
+target23 : 
+	bash -c "python model.py 24 > no_reset_24.txt"
+
+target24 : 
+	bash -c "python model.py 25 > no_reset_25.txt"
+
+target25 : 
+	bash -c "python model.py 26 > no_reset_26.txt"
+
+target26 : 
+	bash -c "python model.py 27 > no_reset_27.txt"
+
+target27 : 
+	bash -c "python model.py 28 > no_reset_28.txt"
+
+target28 : 
+	bash -c "python model.py 29 > no_reset_29.txt"
+
+target29 : 
+	bash -c "python model.py 30 > no_reset_30.txt"
+
+target30 : 
+	bash -c "python model.py 31 > no_reset_31.txt"
+
+target31 : 
+	bash -c "python model.py 32 > no_reset_32.txt"
+
+target32 : 
+	bash -c "python model.py 33 > no_reset_33.txt"
+
+target33 : 
+	bash -c "python model.py 34 > no_reset_34.txt"
+
+target34 : 
+	bash -c "python model.py 35 > no_reset_35.txt"
+
+target35 : 
+	bash -c "python model.py 36 > no_reset_36.txt"
+
+target36 : 
+	bash -c "python model.py 37 > no_reset_37.txt"
+
+target37 : 
+	bash -c "python model.py 38 > no_reset_38.txt"
+
+target38 : 
+	bash -c "python model.py 39 > no_reset_39.txt"
+
+target39 : 
+	bash -c "python model.py 40 > no_reset_40.txt"
+
+target40 : 
+	bash -c "python model.py 41 > no_reset_41.txt"
+
+target41 : 
+	bash -c "python model.py 42 > no_reset_42.txt"
+
+target42 : 
+	bash -c "python model.py 43 > no_reset_43.txt"
+
+target43 : 
+	bash -c "python model.py 44 > no_reset_44.txt"
+
+target44 : 
+	bash -c "python model.py 45 > no_reset_45.txt"
+
+target45 : 
+	bash -c "python model.py 46 > no_reset_46.txt"
+
+target46 : 
+	bash -c "python model.py 47 > no_reset_47.txt"
+
+target47 : 
+	bash -c "python model.py 48 > no_reset_48.txt"
+
+target48 : 
+	bash -c "python model.py 49 > no_reset_49.txt"
+
+target49 : 
+	bash -c "python model.py 50 > no_reset_50.txt"
+
+target50 : 
+	bash -c "python model.py 51 > no_reset_51.txt"
+
+target51 : 
+	bash -c "python model.py 52 > no_reset_52.txt"
+
+target52 : 
+	bash -c "python model.py 53 > no_reset_53.txt"
+
+target53 : 
+	bash -c "python model.py 54 > no_reset_54.txt"
+
+target54 : 
+	bash -c "python model.py 55 > no_reset_55.txt"
+
+target55 : 
+	bash -c "python model.py 56 > no_reset_56.txt"
+
+target56 : 
+	bash -c "python model.py 57 > no_reset_57.txt"
+
+target57 : 
+	bash -c "python model.py 58 > no_reset_58.txt"
+
+target58 : 
+	bash -c "python model.py 59 > no_reset_59.txt"
+
+target59 : 
+	bash -c "python model.py 60 > no_reset_60.txt"
+
+target60 : 
+	bash -c "python model.py 61 > no_reset_61.txt"
+
+target61 : 
+	bash -c "python model.py 62 > no_reset_62.txt"
+
+target62 : 
+	bash -c "python model.py 63 > no_reset_63.txt"
+
+target63 : 
+	bash -c "python model.py 64 > no_reset_64.txt"
+
+target64 : 
+	bash -c "python model.py 65 > no_reset_65.txt"
+
+target65 : 
+	bash -c "python model.py 66 > no_reset_66.txt"
+
+target66 : 
+	bash -c "python model.py 67 > no_reset_67.txt"
+
+target67 : 
+	bash -c "python model.py 68 > no_reset_68.txt"
+
+target68 : 
+	bash -c "python model.py 69 > no_reset_69.txt"
+
+target69 : 
+	bash -c "python model.py 70 > no_reset_70.txt"
+
+target70 : 
+	bash -c "python model.py 71 > no_reset_71.txt"
+
+target71 : 
+	bash -c "python model.py 72 > no_reset_72.txt"
+
+target72 : 
+	bash -c "python model.py 73 > no_reset_73.txt"
+
+target73 : 
+	bash -c "python model.py 74 > no_reset_74.txt"
+
+target74 : 
+	bash -c "python model.py 75 > no_reset_75.txt"
+
+target75 : 
+	bash -c "python model.py 76 > no_reset_76.txt"
+
+target76 : 
+	bash -c "python model.py 77 > no_reset_77.txt"
+
+target77 : 
+	bash -c "python model.py 78 > no_reset_78.txt"
+
+target78 : 
+	bash -c "python model.py 79 > no_reset_79.txt"
+
+target79 : 
+	bash -c "python model.py 80 > no_reset_80.txt"
+
+target80 : 
+	bash -c "python model.py 81 > no_reset_81.txt"
+
+target81 : 
+	bash -c "python model.py 82 > no_reset_82.txt"
+
+target82 : 
+	bash -c "python model.py 83 > no_reset_83.txt"
+
+target83 : 
+	bash -c "python model.py 84 > no_reset_84.txt"
+
+target84 : 
+	bash -c "python model.py 85 > no_reset_85.txt"
+
+target85 : 
+	bash -c "python model.py 86 > no_reset_86.txt"
+
+target86 : 
+	bash -c "python model.py 87 > no_reset_87.txt"
+
+target87 : 
+	bash -c "python model.py 88 > no_reset_88.txt"
+
+target88 : 
+	bash -c "python model.py 89 > no_reset_89.txt"
+
+target89 : 
+	bash -c "python model.py 90 > no_reset_90.txt"
+
+target90 : 
+	bash -c "python model.py 91 > no_reset_91.txt"
+
+target91 : 
+	bash -c "python model.py 92 > no_reset_92.txt"
+
+target92 : 
+	bash -c "python model.py 93 > no_reset_93.txt"
+
+target93 : 
+	bash -c "python model.py 94 > no_reset_94.txt"
+
+target94 : 
+	bash -c "python model.py 95 > no_reset_95.txt"
+
+target95 : 
+	bash -c "python model.py 96 > no_reset_96.txt"
+
+target96 : 
+	bash -c "python model.py 97 > no_reset_97.txt"
+
+target97 : 
+	bash -c "python model.py 98 > no_reset_98.txt"
+
+target98 : 
+	bash -c "python model.py 99 > no_reset_99.txt"
+
+target99 : 
+	bash -c "python model.py 100 > no_reset_100.txt"
+
+targets : target0 target1 target2 target3 target4 target5 target6 target7 target8 target9 target10 target11 target12 target13 target14 target15 target16 target17 target18 target19 target20 target21 target22 target23 target24 target25 target26 target27 target28 target29 target30 target31 target32 target33 target34 target35 target36 target37 target38 target39 target40 target41 target42 target43 target44 target45 target46 target47 target48 target49 target50 target51 target52 target53 target54 target55 target56 target57 target58 target59 target60 target61 target62 target63 target64 target65 target66 target67 target68 target69 target70 target71 target72 target73 target74 target75 target76 target77 target78 target79 target80 target81 target82 target83 target84 target85 target86 target87 target88 target89 target90 target91 target92 target93 target94 target95 target96 target97 target98 target99 

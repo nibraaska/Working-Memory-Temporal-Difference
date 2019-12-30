@@ -1,6 +1,6 @@
 #!/bin/bash
 
 for i in {31..100}; do
-	echo "python model.py $i > hard_reset/hard_reset_$i.txt";
+	echo "python model.py $i > no_new_ltm/no_new_ltm_$i.txt";
 done | ./parallelize.bash 5
 

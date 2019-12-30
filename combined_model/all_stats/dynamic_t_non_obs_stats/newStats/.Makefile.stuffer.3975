@@ -1,0 +1,213 @@
+all : targets
+
+target0 : 
+	bash -c "python model.py 31 > hard_reset/hard_reset_31.txt"
+
+target1 : 
+	bash -c "python model.py 32 > hard_reset/hard_reset_32.txt"
+
+target2 : 
+	bash -c "python model.py 33 > hard_reset/hard_reset_33.txt"
+
+target3 : 
+	bash -c "python model.py 34 > hard_reset/hard_reset_34.txt"
+
+target4 : 
+	bash -c "python model.py 35 > hard_reset/hard_reset_35.txt"
+
+target5 : 
+	bash -c "python model.py 36 > hard_reset/hard_reset_36.txt"
+
+target6 : 
+	bash -c "python model.py 37 > hard_reset/hard_reset_37.txt"
+
+target7 : 
+	bash -c "python model.py 38 > hard_reset/hard_reset_38.txt"
+
+target8 : 
+	bash -c "python model.py 39 > hard_reset/hard_reset_39.txt"
+
+target9 : 
+	bash -c "python model.py 40 > hard_reset/hard_reset_40.txt"
+
+target10 : 
+	bash -c "python model.py 41 > hard_reset/hard_reset_41.txt"
+
+target11 : 
+	bash -c "python model.py 42 > hard_reset/hard_reset_42.txt"
+
+target12 : 
+	bash -c "python model.py 43 > hard_reset/hard_reset_43.txt"
+
+target13 : 
+	bash -c "python model.py 44 > hard_reset/hard_reset_44.txt"
+
+target14 : 
+	bash -c "python model.py 45 > hard_reset/hard_reset_45.txt"
+
+target15 : 
+	bash -c "python model.py 46 > hard_reset/hard_reset_46.txt"
+
+target16 : 
+	bash -c "python model.py 47 > hard_reset/hard_reset_47.txt"
+
+target17 : 
+	bash -c "python model.py 48 > hard_reset/hard_reset_48.txt"
+
+target18 : 
+	bash -c "python model.py 49 > hard_reset/hard_reset_49.txt"
+
+target19 : 
+	bash -c "python model.py 50 > hard_reset/hard_reset_50.txt"
+
+target20 : 
+	bash -c "python model.py 51 > hard_reset/hard_reset_51.txt"
+
+target21 : 
+	bash -c "python model.py 52 > hard_reset/hard_reset_52.txt"
+
+target22 : 
+	bash -c "python model.py 53 > hard_reset/hard_reset_53.txt"
+
+target23 : 
+	bash -c "python model.py 54 > hard_reset/hard_reset_54.txt"
+
+target24 : 
+	bash -c "python model.py 55 > hard_reset/hard_reset_55.txt"
+
+target25 : 
+	bash -c "python model.py 56 > hard_reset/hard_reset_56.txt"
+
+target26 : 
+	bash -c "python model.py 57 > hard_reset/hard_reset_57.txt"
+
+target27 : 
+	bash -c "python model.py 58 > hard_reset/hard_reset_58.txt"
+
+target28 : 
+	bash -c "python model.py 59 > hard_reset/hard_reset_59.txt"
+
+target29 : 
+	bash -c "python model.py 60 > hard_reset/hard_reset_60.txt"
+
+target30 : 
+	bash -c "python model.py 61 > hard_reset/hard_reset_61.txt"
+
+target31 : 
+	bash -c "python model.py 62 > hard_reset/hard_reset_62.txt"
+
+target32 : 
+	bash -c "python model.py 63 > hard_reset/hard_reset_63.txt"
+
+target33 : 
+	bash -c "python model.py 64 > hard_reset/hard_reset_64.txt"
+
+target34 : 
+	bash -c "python model.py 65 > hard_reset/hard_reset_65.txt"
+
+target35 : 
+	bash -c "python model.py 66 > hard_reset/hard_reset_66.txt"
+
+target36 : 
+	bash -c "python model.py 67 > hard_reset/hard_reset_67.txt"
+
+target37 : 
+	bash -c "python model.py 68 > hard_reset/hard_reset_68.txt"
+
+target38 : 
+	bash -c "python model.py 69 > hard_reset/hard_reset_69.txt"
+
+target39 : 
+	bash -c "python model.py 70 > hard_reset/hard_reset_70.txt"
+
+target40 : 
+	bash -c "python model.py 71 > hard_reset/hard_reset_71.txt"
+
+target41 : 
+	bash -c "python model.py 72 > hard_reset/hard_reset_72.txt"
+
+target42 : 
+	bash -c "python model.py 73 > hard_reset/hard_reset_73.txt"
+
+target43 : 
+	bash -c "python model.py 74 > hard_reset/hard_reset_74.txt"
+
+target44 : 
+	bash -c "python model.py 75 > hard_reset/hard_reset_75.txt"
+
+target45 : 
+	bash -c "python model.py 76 > hard_reset/hard_reset_76.txt"
+
+target46 : 
+	bash -c "python model.py 77 > hard_reset/hard_reset_77.txt"
+
+target47 : 
+	bash -c "python model.py 78 > hard_reset/hard_reset_78.txt"
+
+target48 : 
+	bash -c "python model.py 79 > hard_reset/hard_reset_79.txt"
+
+target49 : 
+	bash -c "python model.py 80 > hard_reset/hard_reset_80.txt"
+
+target50 : 
+	bash -c "python model.py 81 > hard_reset/hard_reset_81.txt"
+
+target51 : 
+	bash -c "python model.py 82 > hard_reset/hard_reset_82.txt"
+
+target52 : 
+	bash -c "python model.py 83 > hard_reset/hard_reset_83.txt"
+
+target53 : 
+	bash -c "python model.py 84 > hard_reset/hard_reset_84.txt"
+
+target54 : 
+	bash -c "python model.py 85 > hard_reset/hard_reset_85.txt"
+
+target55 : 
+	bash -c "python model.py 86 > hard_reset/hard_reset_86.txt"
+
+target56 : 
+	bash -c "python model.py 87 > hard_reset/hard_reset_87.txt"
+
+target57 : 
+	bash -c "python model.py 88 > hard_reset/hard_reset_88.txt"
+
+target58 : 
+	bash -c "python model.py 89 > hard_reset/hard_reset_89.txt"
+
+target59 : 
+	bash -c "python model.py 90 > hard_reset/hard_reset_90.txt"
+
+target60 : 
+	bash -c "python model.py 91 > hard_reset/hard_reset_91.txt"
+
+target61 : 
+	bash -c "python model.py 92 > hard_reset/hard_reset_92.txt"
+
+target62 : 
+	bash -c "python model.py 93 > hard_reset/hard_reset_93.txt"
+
+target63 : 
+	bash -c "python model.py 94 > hard_reset/hard_reset_94.txt"
+
+target64 : 
+	bash -c "python model.py 95 > hard_reset/hard_reset_95.txt"
+
+target65 : 
+	bash -c "python model.py 96 > hard_reset/hard_reset_96.txt"
+
+target66 : 
+	bash -c "python model.py 97 > hard_reset/hard_reset_97.txt"
+
+target67 : 
+	bash -c "python model.py 98 > hard_reset/hard_reset_98.txt"
+
+target68 : 
+	bash -c "python model.py 99 > hard_reset/hard_reset_99.txt"
+
+target69 : 
+	bash -c "python model.py 100 > hard_reset/hard_reset_100.txt"
+
+targets : target0 target1 target2 target3 target4 target5 target6 target7 target8 target9 target10 target11 target12 target13 target14 target15 target16 target17 target18 target19 target20 target21 target22 target23 target24 target25 target26 target27 target28 target29 target30 target31 target32 target33 target34 target35 target36 target37 target38 target39 target40 target41 target42 target43 target44 target45 target46 target47 target48 target49 target50 target51 target52 target53 target54 target55 target56 target57 target58 target59 target60 target61 target62 target63 target64 target65 target66 target67 target68 target69 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
-for i in {151..200}; do
-	python model.py $i > "${i}.txt" &
-done;
+for i in {1..100}; do
+	echo "python model.py $i > no_reset_$i.txt";
+done | ./parallelize.bash 5
+
