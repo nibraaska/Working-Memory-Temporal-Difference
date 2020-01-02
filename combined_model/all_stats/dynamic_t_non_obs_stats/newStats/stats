@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for i in {20..100}; do
-	echo "python3 no_reset_model.py $i > no_reset/no_reset_$i.txt"; 
-	echo "python3 reset_model.py $i > reset/reset_$i.txt";
-done | parallel -j 5
+for i in {1..100}; do
+	echo "python3 weights_model.py $i > weights/weights_$i.txt"; 
+	echo "python3 hrr_model.py $i > hrr/hrr_$i.txt";
+done | parallel -j 8
 
 
