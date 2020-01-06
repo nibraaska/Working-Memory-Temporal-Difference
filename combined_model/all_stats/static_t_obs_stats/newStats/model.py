@@ -41,7 +41,7 @@ seed(seed_val)
 # In[ ]:
 
 
-def plot_all_graphs(save=False, iteration=0):
+def plot_all_graphs():
     get_ipython().run_line_magic('matplotlib', 'inline')
     fig, axes = plt.subplots(nrows=num_of_atrs, ncols=num_obs_tasks+1)
     fig.set_figwidth(15)
@@ -123,10 +123,6 @@ def plot_all_graphs(save=False, iteration=0):
                 y_for_no_rwd += 1
 
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
-    if save:
-        plt.savefig("plots/run_{0}".format(iteration), dpi=fig.dpi)
-    else:
-        plt.show()
     plt.show()
     
 def plot_graph(data):
@@ -350,31 +346,43 @@ def get_opt_steps(start, goal, size_of_maze):
 # In[ ]:
 
 
-def start_testing():
-    global testing, rand_on, alpha, threshold_alpha, atr_alpha
+def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
     testing = True
     rand_on = 0
     alpha = 0.01
     threshold_alpha = 0
     atr_alpha = 0
+    return testing, rand_on, alpha, threshold_alpha, atr_alpha
 
 
 # In[ ]:
 
 
-def reset():
-    seed(seed_val)
-    global num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
+def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility):
     num_of_atrs += 1
     atr_values = [1 * reward_good] * num_of_atrs
     if dynamic_threshold:
         threshold = 1
     hrr_length = (num_of_atrs * hrr_length) / (num_of_atrs - 1)
-    del ltm
-    ltm = LTM(int(hrr_length), normalized)
-    weights = hrr(int(hrr_length), normalized)
+    store_old = ltm.getStore()
+    ltm_new = LTM(int(hrr_length), normalized)
+
+    new_hrrs = hrrs(hrr_length, ltm.count(), normalized)
+    vals = []
+    for key in store_old.keys():
+        key_val = store_old[key]
+        vals += [np.dot(weights, key_val)]  
+    s = np.linalg.pinv(new_hrrs)
+    weights_new = np.asarray(np.dot(s,np.atleast_2d(vals).T)).ravel()
+
+    for ind, key in enumerate(store_old.keys()):
+        ltm_new.encode_val(key, new_hrrs[ind])
+
+    ltm = ltm_new
+    weights = weights_new
     eligibility = np.zeros(int(hrr_length))
 
+    return num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
 
 # In[ ]:
 
@@ -383,7 +391,7 @@ def reset():
 episodes = 100000
 
 # Hrr parameters
-hrr_length = 13312
+hrr_length = 10240
 normalized = True
 
 # How many steps to take before quiting
@@ -394,7 +402,7 @@ signals = ["R", "G", "B"]
 goals = [[3, 10, 14]]
 
 # Maze parameters
-size_of_maze = 20
+size_of_maze = 15
 non_obs_task_switch_rate = 500
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
@@ -419,7 +427,7 @@ threshold_vals = []
 # Threshold for non observable task switching
 threshold = 0.3
 # threshold = 1
-# threshold_alpha = 0.0001
+threshold_alpha = 0.0001
 dynamic_threshold = False
 
 # Expolration rate
@@ -492,7 +500,10 @@ for x in range(episodes):
     
     # Set the goal for the tast
     if x%non_obs_task_switch_rate == 0:
-        non_obs = choice([i for i in range(len(goals))])
+        try:
+            non_obs = choice([i for i in range(len(goals)) if i not in [non_obs]])
+        except:
+            non_obs = 0
         changed = True
     if num_obs_tasks == 1:
         goal = goals[non_obs][0]
@@ -504,7 +515,7 @@ for x in range(episodes):
     
     # Start testing phase
     if testing == False and x > ((episodes*percent_check) / 10):
-        start_testing()
+        testing, rand_on, alpha, threshold_alpha, atr_alpha = start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha)
         
     for y in range(steps_till_quit):
         if create_plots:
@@ -598,7 +609,7 @@ for x in range(episodes):
         if sarsa_error > fabs(threshold) or sarsa_error < -fabs(threshold):
             
             if np.mean(atr_values) < atr_threshold:
-                reset()
+                num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility)
             
             if create_plots:
                 switch_error += [sarsa_error]
@@ -634,9 +645,7 @@ for x in range(episodes):
             step_store += [steps_till_quit]
             
 #    update_progress(x / episodes, x)
-    if (x%100) == 0:
-        plot_all_graphs(True, x)   
-
+    
     if live_graph:
         plt.pause(0.001)
     
