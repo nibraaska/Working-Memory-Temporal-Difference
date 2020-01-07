@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for i in {66..100}; do
-	python model2.py $i > "${i}.txt" &
-done;
+for i in {1..100}; do
+	echo "python3 model.py $i > "dynamic/${i}.txt"";
+done | parallel -j 15

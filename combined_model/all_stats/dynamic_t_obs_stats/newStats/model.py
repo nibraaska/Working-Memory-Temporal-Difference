@@ -346,21 +346,19 @@ def get_opt_steps(start, goal, size_of_maze):
 # In[ ]:
 
 
-def start_testing():
-    global testing, rand_on, alpha, threshold_alpha, atr_alpha
+def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
     testing = True
     rand_on = 0
     alpha = 0.01
     threshold_alpha = 0
     atr_alpha = 0
+    return testing, rand_on, alpha, threshold_alpha, atr_alpha
 
 
 # In[ ]:
 
 
-def reset():
-    seed(seed_val)
-    global num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
+def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility):
     num_of_atrs += 1
     atr_values = [1 * reward_good] * num_of_atrs
     if dynamic_threshold:
@@ -370,7 +368,7 @@ def reset():
     ltm = LTM(int(hrr_length), normalized)
     weights = hrr(int(hrr_length), normalized)
     eligibility = np.zeros(int(hrr_length))
-
+    return num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
 
 # In[ ]:
 
@@ -379,7 +377,7 @@ def reset():
 episodes = 100000
 
 # Hrr parameters
-hrr_length = 13312
+hrr_length = 15360
 normalized = True
 
 # How many steps to take before quiting
@@ -390,7 +388,7 @@ signals = ["R", "G", "B"]
 goals = [[3, 10, 14]]
 
 # Maze parameters
-size_of_maze = 20
+size_of_maze = 15
 non_obs_task_switch_rate = 500
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
@@ -398,8 +396,8 @@ num_obs_tasks = len(signals)
 # Arguments for neural network
 input_size = hrr_length
 output_size = 1
-discount = 0.9
-alpha = 0.3
+discount = 0.7
+alpha = 0.1
 
 # Reward for temporal difference learning
 reward_bad = -1
@@ -488,7 +486,10 @@ for x in range(episodes):
     
     # Set the goal for the tast
     if x%non_obs_task_switch_rate == 0:
-        non_obs = choice([i for i in range(len(goals))])
+        try:
+            non_obs = choice([i for i in range(len(goals)) if i not in [non_obs]])
+        except:
+            non_obs = 0
         changed = True
     if num_obs_tasks == 1:
         goal = goals[non_obs][0]
@@ -500,7 +501,7 @@ for x in range(episodes):
     
     # Start testing phase
     if testing == False and x > ((episodes*percent_check) / 10):
-        start_testing()
+        testing, rand_on, alpha, threshold_alpha, atr_alpha = start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha)
         
     for y in range(steps_till_quit):
         if create_plots:
@@ -594,7 +595,7 @@ for x in range(episodes):
         if sarsa_error > fabs(threshold) or sarsa_error < -fabs(threshold):
             
             if np.mean(atr_values) < atr_threshold:
-                reset()
+                num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility)
             
             if create_plots:
                 switch_error += [sarsa_error]
@@ -630,7 +631,7 @@ for x in range(episodes):
             step_store += [steps_till_quit]
             
 #    update_progress(x / episodes, x)
-   
+    
     if live_graph:
         plt.pause(0.001)
     
