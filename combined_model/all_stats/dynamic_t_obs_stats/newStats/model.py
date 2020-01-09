@@ -396,8 +396,8 @@ num_obs_tasks = len(signals)
 # Arguments for neural network
 input_size = hrr_length
 output_size = 1
-discount = 0.7
-alpha = 0.1
+discount = 0.9
+alpha = 0.3
 
 # Reward for temporal difference learning
 reward_bad = -1
@@ -634,7 +634,6 @@ for x in range(episodes):
     
     if live_graph:
         plt.pause(0.001)
-    
 #update_progress(1, episodes)
 
 
