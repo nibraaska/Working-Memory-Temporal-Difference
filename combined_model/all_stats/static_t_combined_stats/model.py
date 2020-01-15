@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+
+# +
 
 
 import matplotlib as mpl
@@ -24,7 +25,7 @@ from sys import argv
 seed_val = int(argv[1])
 
 
-# In[ ]:
+# +
 
 
 def seed(seed):
@@ -32,13 +33,13 @@ def seed(seed):
     np.random.seed(seed)
 
 
-# In[ ]:
+# +
 
 
 seed(seed_val)
 
 
-# In[ ]:
+# +
 
 
 def plot_all_graphs():
@@ -220,7 +221,7 @@ def animate(i):
     plt.tight_layout(rect=[0, 0.03, 1, 0.95])
 
 
-# In[ ]:
+# +
 
 
 def update_progress(progress, episode):
@@ -241,7 +242,7 @@ def update_progress(progress, episode):
     print(text)
 
 
-# In[ ]:
+# +
 
 
 def get_moves(state, size_of_maze):
@@ -253,7 +254,7 @@ def get_moves(state, size_of_maze):
         return state - 1, state + 1
 
 
-# In[ ]:
+# +
 
 
 def build_hrr_string(wm, signal, state, atr):
@@ -267,7 +268,7 @@ def build_hrr_string(wm, signal, state, atr):
         return "WM:" + str(wm) + "*" + "Signal:" + str(signal) + "*" + "State:" + str(state) + "*" + "Atr:" + str(atr)
 
 
-# In[ ]:
+# +
 
 
 def context_policy_negative(atr):
@@ -284,14 +285,14 @@ def context_policy_positive(wm, signal, state, atr):
     return s_atr
 
 
-# In[ ]:
+# +
 
 
 def reward_tkn():
     return "*rewardTkn"
 
 
-# In[ ]:
+# +
 
 
 def move_policy(goal, moves, wms, signals, atr, rand_on):
@@ -326,14 +327,14 @@ def move_policy(goal, moves, wms, signals, atr, rand_on):
     return (s_move, s_wm, atr, False)
 
 
-# In[ ]:
+# +
 
 
 def logmod(x):
     return np.sign(x)*np.log(abs(x)+1)
 
 
-# In[ ]:
+# +
 
 
 def get_opt_steps(start, goal, size_of_maze):
@@ -343,7 +344,7 @@ def get_opt_steps(start, goal, size_of_maze):
     return opt
 
 
-# In[ ]:
+# +
 
 
 def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
@@ -355,7 +356,7 @@ def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
     return testing, rand_on, alpha, threshold_alpha, atr_alpha
 
 
-# In[ ]:
+# +
 
 
 def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility):
@@ -371,7 +372,7 @@ def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibil
     return num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
 
 
-# In[ ]:
+# +
 
 
 # Number of training cycles
@@ -386,10 +387,10 @@ steps_till_quit = 100
 
 # Task
 signals = ["R", "G"]
-goals = [[2, 8], [ 13, 18]]
+goals = [[2, 5], [ 8, 13]]
 
 # Maze parameters
-size_of_maze = 20
+size_of_maze = 15
 non_obs_task_switch_rate = 1000
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
@@ -406,7 +407,7 @@ reward_good = 0
 
 # Dynamic atrs hyperparameters
 num_of_atrs = 1
-atr_alpha = 0.00007
+atr_alpha = 0.00011
 atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
 atr_threshold = -0.5
 threshold_vals = []
@@ -463,13 +464,13 @@ live_graph = False
 ltm = LTM(hrr_length, normalized)
 
 
-# In[ ]:
+# +
 
 
 # start_time = time.time()
 
 
-# In[ ]:
+# +
 
 
 for x in range(episodes):
@@ -627,25 +628,21 @@ for x in range(episodes):
             step_store += [steps - opt_steps]
         else:
             step_store += [steps_till_quit]
-            
+    if(x%1000==0):
+        print(x)
 #    update_progress(x / episodes, x)
     
-    if live_graph:
-        plt.pause(0.001)
-    if(x%1000 == 0):
-        print(x)
-print(num_of_atrs)
 #update_progress(1, episodes)
 
 
-# In[ ]:
+# +
 
 
 # end_time = time.time()
-# print("Total time: {0} minutes".format((end_time - start_time)/60))
+# print("Total time: {0} minutes".format((end_time - start_time)))
 
 
-# In[ ]:
+# +
 
 
 # plot_graph(step_store)
@@ -653,145 +650,145 @@ accuracy = (len(step_store)-np.count_nonzero(step_store))*100.0 / len(step_store
 print(accuracy)
 
 
-# In[ ]:
+# +
 
 
 # plot_all_graphs()
 
 
-# In[ ]:
+# +
 
 
 if create_plots:
     plot_graph(pos_err_store)
 
 
-# In[ ]:
+# +
 
 
 if create_plots:
     plot_graph(neg_err_store)
 
 
-# In[ ]:
+# +
 
 
 if create_plots:
     plot_graph(total_error)
 
 
-# In[ ]:
+# +
 
 
 if create_plots:
     plot_graph(total_goal_error)
 
 
-# In[ ]:
+# +
 
 
 if create_plots:
     plt.plot(switch_error)
 
 
-# In[ ]:
+# +
 
 
 if create_plots:
     plot_graph(norm_error)
 
 
-# In[ ]:
+# +
 
 
 # threshold
 
 
-# In[ ]:
+# +
 
 
 # print(atr_values)
 
 
-# In[ ]:
+# +
 
 
 # plot_graph(threshold_vals)
 
 
-# In[ ]:
+# +
 
 
 # hrr_length
 
 
-# In[ ]:
+# +
 
 
 # ltm.count()
 
 
-# In[ ]:
+# +
 
 
 # seed_val
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
 
 
-# In[ ]:
+# +
 
 
 
