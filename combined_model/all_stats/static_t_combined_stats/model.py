@@ -379,7 +379,7 @@ def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibil
 episodes = 100000
 
 # Hrr parameters
-hrr_length = (1024*20)
+hrr_length = (1024*25)
 normalized = True
 
 # How many steps to take before quiting
@@ -391,7 +391,7 @@ goals = [[2, 5], [ 8, 13]]
 
 # Maze parameters
 size_of_maze = 15
-non_obs_task_switch_rate = 1000
+non_obs_task_switch_rate = 2000
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
 
@@ -631,7 +631,7 @@ for x in range(episodes):
     if(x%1000==0):
         print(x)
 #    update_progress(x / episodes, x)
-    
+print(atr_values) 
 #update_progress(1, episodes)
 
 
