@@ -391,7 +391,7 @@ goals = [[2, 5], [ 8, 13]]
 
 # Maze parameters
 size_of_maze = 15
-non_obs_task_switch_rate = 2000
+non_obs_task_switch_rate = 1000
 num_non_obs_tasks = len(goals)
 num_obs_tasks = len(signals)
 
@@ -407,7 +407,7 @@ reward_good = 0
 
 # Dynamic atrs hyperparameters
 num_of_atrs = 1
-atr_alpha = 0.0001
+atr_alpha = 0.00011
 atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
 atr_threshold = -0.5
 threshold_vals = []
@@ -423,7 +423,7 @@ e_soft = 0.00001
 rand_on = 1
 
 # Eligibility trace rate
-eli_lambda = 0.05
+eli_lambda = 0.01
 
 # Neural network
 weights = hrr(hrr_length, normalized)
@@ -628,8 +628,8 @@ for x in range(episodes):
             step_store += [steps - opt_steps]
         else:
             step_store += [steps_till_quit]
-#    if(x%1000==0):
-#        print(x)
+    if(x%1000==0):
+        print(x)
 #    update_progress(x / episodes, x)
 #update_progress(1, episodes)
 #print(atr_values)
