@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for i in {1..50}; do
+for i in {68..84}; do
 	echo "python3 model.py $i > "static/${i}.txt"";
 done | parallel -j 2

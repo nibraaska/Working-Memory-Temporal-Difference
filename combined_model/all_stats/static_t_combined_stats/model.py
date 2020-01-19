@@ -628,8 +628,8 @@ for x in range(episodes):
             step_store += [steps - opt_steps]
         else:
             step_store += [steps_till_quit]
-    if(x%1000==0):
-        print(x)
+#    if(x%1000==0):
+#        print(x)
 #    update_progress(x / episodes, x)
 #update_progress(1, episodes)
 #print(atr_values)
