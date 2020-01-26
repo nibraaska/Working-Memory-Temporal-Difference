@@ -4,13 +4,14 @@
 # In[ ]:
 
 
-import matplotlib as mpl
-import matplotlib.pyplot as plt
+#import matplotlib as mpl
+#import matplotlib.pyplot as plt
 
 import numpy as np
 np.set_printoptions(threshold=np.inf)
 
-import time, sys, random, pylab
+import time, sys, random
+#, pylab
 from math import fabs
 
 from random import randrange
@@ -18,7 +19,7 @@ from random import choice
 
 from hrr import *
 
-from IPython.display import clear_output
+#from IPython.display import clear_output
 from sys import argv
 
 seed_val = int(argv[1])
@@ -357,31 +358,16 @@ def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
 
 # In[ ]:
 
-
 def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility):
     num_of_atrs += 1
     atr_values = [1 * reward_good] * num_of_atrs
     if dynamic_threshold:
         threshold = 1
     hrr_length = (num_of_atrs * hrr_length) / (num_of_atrs - 1)
-    store_old = ltm.getStore()
-    ltm_new = LTM(int(hrr_length), normalized)
-
-    new_hrrs = hrrs(hrr_length, ltm.count(), normalized)
-    vals = []
-    for key in store_old.keys():
-        key_val = store_old[key]
-        vals += [np.dot(weights, key_val)]  
-    s = np.linalg.pinv(new_hrrs)
-    weights_new = np.asarray(np.dot(s,np.atleast_2d(vals).T)).ravel()
-
-    for ind, key in enumerate(store_old.keys()):
-        ltm_new.encode_val(key, new_hrrs[ind])
-
-    ltm = ltm_new
-    weights = weights_new
+    del ltm
+    ltm = LTM(int(hrr_length), normalized)
+    weights = hrr(int(hrr_length), normalized)
     eligibility = np.zeros(int(hrr_length))
-
     return num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility
 
 # In[ ]:
@@ -648,7 +634,8 @@ for x in range(episodes):
     
     if live_graph:
         plt.pause(0.001)
-    
+    if(x%1000==0):
+        print(x)
 #update_progress(1, episodes)
 
 

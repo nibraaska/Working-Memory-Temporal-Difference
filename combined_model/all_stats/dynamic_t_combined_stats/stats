@@ -1,5 +1,5 @@
 #!/bin/bash
 
-for i in {1..50}; do
-	echo "python3 model.py $i > "dynamic/${i}.txt"";
-done | parallel -j 2
+for i in {1..100}; do
+	echo "nice -19 python3 hrr_model.py $i > "transfer/${i}.txt"";
+done | ./parallelize.bash 32
