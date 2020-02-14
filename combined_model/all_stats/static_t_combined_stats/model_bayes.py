@@ -37,9 +37,6 @@ def seed(seed):
 # +
 
 
-seed(seed_val)
-
-
 # +
 
 
@@ -377,6 +374,8 @@ def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibil
 
 def main():
 
+    seed(seed_val)
+
     # Number of training cycles
     episodes = 100000
 
@@ -389,407 +388,407 @@ def main():
 
     # Task
     signals = ["R", "G"]
-goals = [[2, 5], [ 8, 13]]
+    goals = [[2, 5], [ 8, 13]]
 
-# Maze parameters
-size_of_maze = 15
-non_obs_task_switch_rate = 1000
-num_non_obs_tasks = len(goals)
-num_obs_tasks = len(signals)
+    # Maze parameters
+    size_of_maze = 15
+    non_obs_task_switch_rate = 1000
+    num_non_obs_tasks = len(goals)
+    num_obs_tasks = len(signals)
 
-# Arguments for neural network
-input_size = hrr_length
-output_size = 1
-discount = 0.7
-alpha = 0.1
+    # Arguments for neural network
+    input_size = hrr_length
+    output_size = 1
+    discount = 0.7
+    alpha = 0.1
 
-# Reward for temporal difference learning
-reward_bad = -1
-reward_good = 0
+    # Reward for temporal difference learning
+    reward_bad = -1
+    reward_good = 0
 
-# Dynamic atrs hyperparameters
-num_of_atrs = 1
-atr_alpha = 0.00011
-atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
-atr_threshold = -0.5
-threshold_vals = []
+    # Dynamic atrs hyperparameters
+    num_of_atrs = 1
+    atr_alpha = 0.00011
+    atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
+    atr_threshold = -0.5
+    threshold_vals = []
 
-# Threshold for non observable task switching
-threshold = 0.3
-# threshold = 1
-threshold_alpha = 0.0001
-dynamic_threshold = False
+    # Threshold for non observable task switching
+    threshold = 0.3
+    # threshold = 1
+    threshold_alpha = 0.0001
+    dynamic_threshold = False
 
-# Expolration rate
-e_soft = 0.00001
-rand_on = 1
+    # Expolration rate
+    e_soft = 0.00001
+    rand_on = 1
 
-# Eligibility trace rate
-eli_lambda = 0.01
+    # Eligibility trace rate
+    eli_lambda = 0.01
 
-# Neural network
-weights = hrr(hrr_length, normalized)
-bias = 1
+    # Neural network
+    weights = hrr(hrr_length, normalized)
+    bias = 1
 
-# Eligibility trace
-eligibility = np.zeros(hrr_length)
+    # Eligibility trace
+    eligibility = np.zeros(hrr_length)
 
-# Accurcay test percentage
-percent_check = 9
+    # Accurcay test percentage
+    percent_check = 9
 
-# Start values for the agent
-non_obs = 0
-current_atr = 0
-current_wm = "I"
-changed = False
-
-# Flag for printing values
-debug = False
-testing = False
-
-create_plots = False
-episodic_memory = False
-
-step_store = []
-if create_plots:
-    pos_err_store = []
-    neg_err_store = []
-    total_error = []
-    total_goal_error = []
-    switch_error = []
-    norm_error = []
-
-# Live graph flag
-live_graph = False
-
-# Ltm is created
-ltm = LTM(hrr_length, normalized)
-
-
-# +
-
-
-# start_time = time.time()
-
-
-# +
-
-
-for x in range(episodes):
-        
-    # Initial state
-    current_state = random.randint(0, size_of_maze - 1)
-    start = current_state
-    current_signal = np.random.choice(signals)
-    eligibility *= 0.0
-    
-    if episodic_memory:
-        episode_memory = []
-    
+    # Start values for the agent
+    non_obs = 0
+    current_atr = 0
+    current_wm = "I"
     changed = False
-    
-    # Set the goal for the tast
-    if x%non_obs_task_switch_rate == 0:
-        non_obs = choice([i for i in range(len(goals)) if i not in [non_obs]])
-        changed = True
-    if num_obs_tasks == 1:
-        goal = goals[non_obs][0]
-    else:
-        goal = goals[non_obs][signals.index(current_signal)]
-        
-    steps = 0
-    opt_steps = get_opt_steps(current_state, goal, size_of_maze)
-    
-    # Start testing phase
-    if testing == False and x > ((episodes*percent_check) / 10):
-        testing, rand_on, alpha, threshold_alpha, atr_alpha = start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha)
-        
-    for y in range(steps_till_quit):
-        if create_plots:
-            threshold_vals += [threshold]
-        if (current_state == goal):
-            encode_str = build_hrr_string(current_wm, current_signal, str(current_state) + reward_tkn(), current_atr)
-            goal_hrr = ltm.encode(encode_str)
-            goal_value = np.dot(weights, goal_hrr) + bias
-            
-            if episodic_memory:
-                episode_memory += [[current_state, goal_value, goal]]
 
-            error = reward_good - goal_value
+    # Flag for printing values
+    debug = False
+    testing = False
+
+    create_plots = False
+    episodic_memory = False
+
+    step_store = []
+    if create_plots:
+        pos_err_store = []
+        neg_err_store = []
+        total_error = []
+        total_goal_error = []
+        switch_error = []
+        norm_error = []
+
+    # Live graph flag
+    live_graph = False
+
+    # Ltm is created
+    ltm = LTM(hrr_length, normalized)
+
+
+    # +
+
+
+    # start_time = time.time()
+
+
+    # +
+
+
+    for x in range(episodes):
+            
+        # Initial state
+        current_state = random.randint(0, size_of_maze - 1)
+        start = current_state
+        current_signal = np.random.choice(signals)
+        eligibility *= 0.0
+        
+        if episodic_memory:
+            episode_memory = []
+        
+        changed = False
+        
+        # Set the goal for the tast
+        if x%non_obs_task_switch_rate == 0:
+            non_obs = choice([i for i in range(len(goals)) if i not in [non_obs]])
+            changed = True
+        if num_obs_tasks == 1:
+            goal = goals[non_obs][0]
+        else:
+            goal = goals[non_obs][signals.index(current_signal)]
+            
+        steps = 0
+        opt_steps = get_opt_steps(current_state, goal, size_of_maze)
+        
+        # Start testing phase
+        if testing == False and x > ((episodes*percent_check) / 10):
+            testing, rand_on, alpha, threshold_alpha, atr_alpha = start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha)
+            
+        for y in range(steps_till_quit):
+            if create_plots:
+                threshold_vals += [threshold]
+            if (current_state == goal):
+                encode_str = build_hrr_string(current_wm, current_signal, str(current_state) + reward_tkn(), current_atr)
+                goal_hrr = ltm.encode(encode_str)
+                goal_value = np.dot(weights, goal_hrr) + bias
+                
+                if episodic_memory:
+                    episode_memory += [[current_state, goal_value, goal]]
+
+                error = reward_good - goal_value
+                eligibility *= eli_lambda
+                eligibility = eligibility + goal_hrr
+                weights = np.add(weights, (alpha * logmod(error) * eligibility))
+                
+                if dynamic_threshold:
+                    threshold += threshold_alpha * logmod(error)
+                    
+                atr_values[current_atr] += atr_alpha * logmod(error)
+                
+                if create_plots:
+                    total_goal_error += [error]
+                
+                if(debug):
+                    print("In goal with value {0}".format(goal_value))
+                
+                break
+                
+            # Store info about previous state      
+            previous_wm = current_wm
+            previous_signal = current_signal
+            previous_state = current_state
+            previous_atr = current_atr
+            
+            if debug:
+                print("Previous WM:, {0}, Signal:, {1}, State, {2}, ATR:, {3}".format(previous_wm, previous_signal, previous_state, previous_atr))
+            
+            encode_str = build_hrr_string(previous_wm, previous_signal, previous_state, previous_atr)
+            previous_state_hrr = ltm.encode(encode_str)
+            previous_value = np.dot(weights, previous_state_hrr) + bias
+            
+            if debug:
+                print("Started with state: {0}, State Value: {1}, WM: {2},  Atr: {3}".format(previous_state, previous_value, previous_wm, previous_atr))
+                
+            current_signal = "I"
+            left, right = get_moves(previous_state, size_of_maze)
+            if previous_signal != "I":
+                previous_signal += "In"
+                
+            # Make the move
+            move, wm, current_atr, random_move = move_policy(goal, [left, right], [previous_wm, previous_signal], [current_signal], previous_atr, rand_on)
+            steps += 1
+            current_wm = wm
+            current_state = move
+            
+            if random_move:
+                eligibility *= 0.0
+                
+            if(debug):
+                print("Moves {0}, taken {1}".format([left, right], move))
+                
+            if debug:
+                print("Current WM {0}, Current Signal {1}, Current state {2}, Current ATR {3}".format(current_wm, current_signal, current_state, current_atr))
+                
+            if current_state == goal:
+                encode_str = build_hrr_string(current_wm, current_signal, str(current_state) + reward_tkn(), current_atr)     
+                if debug:
+                    print("In goal: WM: {1}, ATR: {2}".format(current_wm, current_atr))
+            else:
+                encode_str = build_hrr_string(current_wm, current_signal, current_state, current_atr)
+                
+            current_state_hrr = ltm.encode(encode_str)
+            current_value = np.dot(weights, current_state_hrr) + bias
+            
+            sarsa_error = (reward_bad + discount * current_value) - previous_value
             eligibility *= eli_lambda
-            eligibility = eligibility + goal_hrr
-            weights = np.add(weights, (alpha * logmod(error) * eligibility))
+            eligibility = eligibility + previous_state_hrr
+            weights = np.add(weights, (alpha * logmod(sarsa_error) * eligibility))
+
+            atr_values[current_atr] += atr_alpha * logmod(sarsa_error)
             
             if dynamic_threshold:
-                threshold += threshold_alpha * logmod(error)
-                
-            atr_values[current_atr] += atr_alpha * logmod(error)
+                threshold += threshold_alpha * logmod(sarsa_error)
             
             if create_plots:
-                total_goal_error += [error]
+                total_error += [sarsa_error]
+                norm_error += [sarsa_error]
             
-            if(debug):
-                print("In goal with value {0}".format(goal_value))
-            
-            break
-            
-        # Store info about previous state      
-        previous_wm = current_wm
-        previous_signal = current_signal
-        previous_state = current_state
-        previous_atr = current_atr
-        
-        if debug:
-            print("Previous WM:, {0}, Signal:, {1}, State, {2}, ATR:, {3}".format(previous_wm, previous_signal, previous_state, previous_atr))
-        
-        encode_str = build_hrr_string(previous_wm, previous_signal, previous_state, previous_atr)
-        previous_state_hrr = ltm.encode(encode_str)
-        previous_value = np.dot(weights, previous_state_hrr) + bias
-        
-        if debug:
-            print("Started with state: {0}, State Value: {1}, WM: {2},  Atr: {3}".format(previous_state, previous_value, previous_wm, previous_atr))
-            
-        current_signal = "I"
-        left, right = get_moves(previous_state, size_of_maze)
-        if previous_signal != "I":
-            previous_signal += "In"
-            
-        # Make the move
-        move, wm, current_atr, random_move = move_policy(goal, [left, right], [previous_wm, previous_signal], [current_signal], previous_atr, rand_on)
-        steps += 1
-        current_wm = wm
-        current_state = move
-        
-        if random_move:
-            eligibility *= 0.0
-            
-        if(debug):
-            print("Moves {0}, taken {1}".format([left, right], move))
-            
-        if debug:
-            print("Current WM {0}, Current Signal {1}, Current state {2}, Current ATR {3}".format(current_wm, current_signal, current_state, current_atr))
-            
-        if current_state == goal:
-            encode_str = build_hrr_string(current_wm, current_signal, str(current_state) + reward_tkn(), current_atr)     
+            if sarsa_error > fabs(threshold) or sarsa_error < -fabs(threshold):
+                
+                if np.mean(atr_values) < atr_threshold:
+                    num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility)
+                
+                if create_plots:
+                    switch_error += [sarsa_error]
+                
+                if create_plots:
+                    if testing and sarsa_error > fabs(threshold):
+                        pos_err_store += [sarsa_error]
+                    elif testing and sarsa_error < -fabs(threshold):
+                        neg_err_store += [sarsa_error]
+                    
+                if sarsa_error > fabs(threshold):
+                    current_atr = context_policy_positive(current_wm, current_signal, current_state, current_atr)
+                elif sarsa_error < -fabs(threshold):
+                    current_atr = context_policy_negative(previous_atr)
+                
+                eligibility *= 0.0
+                
+                if changed:
+                    steps = 0
+                    start = current_state
+                    opt_steps = get_opt_steps(current_state, goal, size_of_maze)
+                    
+                if(debug):
+                    print("Changed atr from {0} to {1}".format(previous_atr, current_atr))
+                    
             if debug:
-                print("In goal: WM: {1}, ATR: {2}".format(current_wm, current_atr))
-        else:
-            encode_str = build_hrr_string(current_wm, current_signal, current_state, current_atr)
+                input("")
             
-        current_state_hrr = ltm.encode(encode_str)
-        current_value = np.dot(weights, current_state_hrr) + bias
-        
-        sarsa_error = (reward_bad + discount * current_value) - previous_value
-        eligibility *= eli_lambda
-        eligibility = eligibility + previous_state_hrr
-        weights = np.add(weights, (alpha * logmod(sarsa_error) * eligibility))
+        if testing:
+            if current_state == goal:
+                step_store += [steps - opt_steps]
+            else:
+                step_store += [steps_till_quit]
+        if(x%1000==0):
+            print(x)
+    #    update_progress(x / episodes, x)
+    #update_progress(1, episodes)
+    #print(atr_values)
 
-        atr_values[current_atr] += atr_alpha * logmod(sarsa_error)
-        
-        if dynamic_threshold:
-            threshold += threshold_alpha * logmod(sarsa_error)
-        
-        if create_plots:
-            total_error += [sarsa_error]
-            norm_error += [sarsa_error]
-        
-        if sarsa_error > fabs(threshold) or sarsa_error < -fabs(threshold):
-            
-            if np.mean(atr_values) < atr_threshold:
-                num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility)
-            
-            if create_plots:
-                switch_error += [sarsa_error]
-            
-            if create_plots:
-                if testing and sarsa_error > fabs(threshold):
-                    pos_err_store += [sarsa_error]
-                elif testing and sarsa_error < -fabs(threshold):
-                    neg_err_store += [sarsa_error]
-                
-            if sarsa_error > fabs(threshold):
-                current_atr = context_policy_positive(current_wm, current_signal, current_state, current_atr)
-            elif sarsa_error < -fabs(threshold):
-                current_atr = context_policy_negative(previous_atr)
-            
-            eligibility *= 0.0
-            
-            if changed:
-                steps = 0
-                start = current_state
-                opt_steps = get_opt_steps(current_state, goal, size_of_maze)
-                
-            if(debug):
-                print("Changed atr from {0} to {1}".format(previous_atr, current_atr))
-                
-        if debug:
-            input("")
-        
-    if testing:
-        if current_state == goal:
-            step_store += [steps - opt_steps]
-        else:
-            step_store += [steps_till_quit]
-    if(x%1000==0):
-        print(x)
-#    update_progress(x / episodes, x)
-#update_progress(1, episodes)
-#print(atr_values)
+    # +
 
-# +
 
+    # end_time = time.time()
+    # print("Total time: {0} minutes".format((end_time - start_time)))
 
-# end_time = time.time()
-# print("Total time: {0} minutes".format((end_time - start_time)))
 
+    # +
 
-# +
 
+    # plot_graph(step_store)
+    accuracy = (len(step_store)-np.count_nonzero(step_store))*100.0 / len(step_store)
+    print(accuracy)
 
-# plot_graph(step_store)
-accuracy = (len(step_store)-np.count_nonzero(step_store))*100.0 / len(step_store)
-print(accuracy)
 
+    # +
 
-# +
 
+    # plot_all_graphs()
 
-# plot_all_graphs()
 
+    # +
 
-# +
 
+    if create_plots:
+        plot_graph(pos_err_store)
 
-if create_plots:
-    plot_graph(pos_err_store)
 
+    # +
 
-# +
 
+    if create_plots:
+        plot_graph(neg_err_store)
 
-if create_plots:
-    plot_graph(neg_err_store)
 
+    # +
 
-# +
 
+    if create_plots:
+        plot_graph(total_error)
 
-if create_plots:
-    plot_graph(total_error)
 
+    # +
 
-# +
 
+    if create_plots:
+        plot_graph(total_goal_error)
 
-if create_plots:
-    plot_graph(total_goal_error)
 
+    # +
 
-# +
 
+    if create_plots:
+        plt.plot(switch_error)
 
-if create_plots:
-    plt.plot(switch_error)
 
+    # +
 
-# +
 
+    if create_plots:
+        plot_graph(norm_error)
 
-if create_plots:
-    plot_graph(norm_error)
 
+    # +
 
-# +
 
+    # threshold
 
-# threshold
 
+    # +
 
-# +
 
+    # print(atr_values)
 
-# print(atr_values)
 
+    # +
 
-# +
 
+    # plot_graph(threshold_vals)
 
-# plot_graph(threshold_vals)
 
+    # +
 
-# +
 
+    # hrr_length
 
-# hrr_length
 
+    # +
 
-# +
 
+    # ltm.count()
 
-# ltm.count()
 
+    # +
 
-# +
 
+    # seed_val
 
-# seed_val
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
+    # +
 
-# +
 
 
 
 
-
-# +
+    # +
 
 
 
