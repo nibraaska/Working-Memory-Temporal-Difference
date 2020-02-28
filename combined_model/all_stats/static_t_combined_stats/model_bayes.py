@@ -12,7 +12,7 @@ import numpy as np
 np.set_printoptions(threshold=np.inf)
 
 import time, sys, random, pylab
-from math import fabs
+from math import fabs, floor
 
 from random import randrange
 from random import choice
@@ -20,6 +20,8 @@ from random import choice
 from hrr import *
 
 from bayes_opt import BayesianOptimization
+from bayes_opt import JSONLogger
+from bayes_opt.event import Events
 from IPython.display import clear_output
 from sys import argv
 
@@ -269,10 +271,10 @@ def build_hrr_string(wm, signal, state, atr):
 # +
 
 
-def context_policy_negative(atr):
+def context_policy_negative(atr, num_of_atrs):
     return (atr + 1)%num_of_atrs
 
-def context_policy_positive(wm, signal, state, atr):
+def context_policy_positive(wm, signal, state, atr, num_of_atrs, weights, ltm, bias):
     val = -9999
     for atr in range(0, num_of_atrs):
         encode_str = build_hrr_string(wm, signal, state, atr)
@@ -293,7 +295,7 @@ def reward_tkn():
 # +
 
 
-def move_policy(goal, moves, wms, signals, atr, rand_on):
+def move_policy(goal, moves, wms, signals, atr, rand_on, debug, weights, ltm, bias, e_soft):
     val = -9999
     for move in moves:
         for wm in list(dict.fromkeys(wms + ["I"])):
@@ -357,7 +359,7 @@ def start_testing(testing, rand_on, alpha, threshold_alpha, atr_alpha):
 # +
 
 
-def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility):
+def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility, reward_good, dynamic_threshold, normalized):
     num_of_atrs += 1
     atr_values = [1 * reward_good] * num_of_atrs
     if dynamic_threshold:
@@ -372,7 +374,7 @@ def reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibil
 
 # +
 
-def main():
+def main(non_obs_task_switch_rate, atr_alpha, eli_lambda):
 
     seed(seed_val)
 
@@ -392,7 +394,7 @@ def main():
 
     # Maze parameters
     size_of_maze = 15
-    non_obs_task_switch_rate = 1000
+    non_obs_task_switch_rate = floor(non_obs_task_switch_rate)
     num_non_obs_tasks = len(goals)
     num_obs_tasks = len(signals)
 
@@ -408,7 +410,7 @@ def main():
 
     # Dynamic atrs hyperparameters
     num_of_atrs = 1
-    atr_alpha = 0.00011
+    atr_alpha = atr_alpha
     atr_values = (np.ones(num_of_atrs) * reward_good).tolist()
     atr_threshold = -0.5
     threshold_vals = []
@@ -424,7 +426,7 @@ def main():
     rand_on = 1
 
     # Eligibility trace rate
-    eli_lambda = 0.01
+    eli_lambda = eli_lambda
 
     # Neural network
     weights = hrr(hrr_length, normalized)
@@ -554,7 +556,7 @@ def main():
                 previous_signal += "In"
                 
             # Make the move
-            move, wm, current_atr, random_move = move_policy(goal, [left, right], [previous_wm, previous_signal], [current_signal], previous_atr, rand_on)
+            move, wm, current_atr, random_move = move_policy(goal, [left, right], [previous_wm, previous_signal], [current_signal], previous_atr, rand_on, debug, weights, ltm, bias, e_soft)
             steps += 1
             current_wm = wm
             current_state = move
@@ -595,7 +597,7 @@ def main():
             if sarsa_error > fabs(threshold) or sarsa_error < -fabs(threshold):
                 
                 if np.mean(atr_values) < atr_threshold:
-                    num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility)
+                    num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility = reset(num_of_atrs, atr_values, threshold, hrr_length, ltm, weights, eligibility, reward_good, dynamic_threshold, normalized)
                 
                 if create_plots:
                     switch_error += [sarsa_error]
@@ -607,9 +609,9 @@ def main():
                         neg_err_store += [sarsa_error]
                     
                 if sarsa_error > fabs(threshold):
-                    current_atr = context_policy_positive(current_wm, current_signal, current_state, current_atr)
+                    current_atr = context_policy_positive(current_wm, current_signal, current_state, current_atr, num_of_atrs, weights, ltm, bias)
                 elif sarsa_error < -fabs(threshold):
-                    current_atr = context_policy_negative(previous_atr)
+                    current_atr = context_policy_negative(previous_atr, num_of_atrs)
                 
                 eligibility *= 0.0
                 
@@ -629,8 +631,8 @@ def main():
                 step_store += [steps - opt_steps]
             else:
                 step_store += [steps_till_quit]
-        if(x%1000==0):
-            print(x)
+    #    if(x%1000==0):
+    #        print(x)
     #    update_progress(x / episodes, x)
     #update_progress(1, episodes)
     #print(atr_values)
@@ -647,8 +649,7 @@ def main():
 
     # plot_graph(step_store)
     accuracy = (len(step_store)-np.count_nonzero(step_store))*100.0 / len(step_store)
-    print(accuracy)
-
+    return accuracy
 
     # +
 
@@ -792,4 +793,18 @@ def main():
 
 
 
+pbounds = {
+    'non_obs_task_switch_rate': (1000, 3000),
+    'atr_alpha': (0.00001, 0.0002),
+    'eli_lambda': (0, 0.1),
+}
 
+optimizer = BayesianOptimization(
+    f=main,
+    pbounds=pbounds,
+    verbose=2,
+    random_state=1,
+)
+logger = JSONLogger(path="logs/logs_{0}.json".format(argv[1]))
+optimizer.subscribe(Events.OPTMIZATION_STEP, logger)
+optimizer.maximize(n_iter=15)

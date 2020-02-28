@@ -12,7 +12,7 @@ fi
 NPROCS="$1"
 
 TARGET=0
-MAKEFILE=".Makefile.stuffer.$$"
+MAKEFILE=".Makefile.stuffer.$RANDOM"
 
 echo "all : targets" >> ${MAKEFILE}
 
