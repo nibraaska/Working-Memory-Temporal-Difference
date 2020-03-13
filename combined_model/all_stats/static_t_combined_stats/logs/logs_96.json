@@ -1,0 +1,2 @@
+{"target": 32.123212321232124, "params": {"atr_alpha": 8.923418089348906e-05, "eli_lambda": 0.07203244934421581, "non_obs_task_switch_rate": 1000.2287496346897}, "datetime": {"datetime": "2020-03-07 19:01:56", "elapsed": 0.0, "delta": 0.0}}
+{"target": 34.193419341934195, "params": {"atr_alpha": 6.744318880004957e-05, "eli_lambda": 0.014675589081711305, "non_obs_task_switch_rate": 1184.6771895375955}, "datetime": {"datetime": "2020-03-08 22:56:21", "elapsed": 100465.492203, "delta": 100465.492203}}
